@@ -13,6 +13,7 @@ var TalentTreeSizes = [3]int{14, 15, 15}
 
 const (
 	SpellFlag_RV          = core.SpellFlagAgentReserved1
+	SpellFlag_SaveWS      = core.SpellFlagAgentReserved2
 	SpellCode_PaladinNone = iota
 	SpellCode_PaladinHolyShock
 	SpellCode_PaladinJudgementOfCommand

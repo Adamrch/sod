@@ -2058,6 +2058,10 @@ func ApplyWildStrikes(character *Character) *Aura {
 		},
 		OnExpire: func(aura *Aura, sim *Simulation) {
 			aura.Unit.AddStatsDynamic(sim, stats.Stats{stats.AttackPower: -bonusAP})
+			if aura.MaxStacks > 2 {
+				aura.Unit.AutoAttacks.ExtraMHAttack(sim, (aura.MaxStacks - 2), buffActionID)
+				aura.MaxStacks = 2
+			}
 		},
 	})
 
@@ -2073,7 +2077,12 @@ func ApplyWildStrikes(character *Character) *Aura {
 		OnSpellHitDealt: func(aura *Aura, sim *Simulation, spell *Spell, result *SpellResult) {
 			// charges are removed by every auto or next melee, whether it lands or not
 			if wsBuffAura.IsActive() && spell.ProcMask.Matches(ProcMaskMeleeWhiteHit) {
+				if wsBuffAura.MaxStacks > 2 {
+					aura.Unit.AutoAttacks.ExtraMHAttack(sim, (wsBuffAura.MaxStacks - 2), buffActionID)
+					wsBuffAura.MaxStacks = 2
+				}
 				wsBuffAura.RemoveStack(sim)
+				wsBuffAura.Duration = time.Millisecond * 100 // 100 ms might be generous - could anywhere from 50-150 ms potentially
 			}
 
 			if !result.Landed() || !spell.ProcMask.Matches(ProcMaskMeleeMH) || spell.ProcMask.Matches(ProcMaskSupressExtraAttack) {
@@ -2083,9 +2092,18 @@ func ApplyWildStrikes(character *Character) *Aura {
 			if icd.IsReady(sim) && sim.RandomFloat("Wild Strikes") < 0.2 {
 				icd.Use(sim)
 				wsBuffAura.Activate(sim)
-				// aura is up _after_ the triggering swing lands, so the aura always stays up after the extra attack
+				// aura is up _after_ the triggering swing lands, the extra attack only has 1500ms for the AP bonus but the extra attack does not expire
 				wsBuffAura.SetStacks(sim, 2)
-				aura.Unit.AutoAttacks.ExtraMHAttack(sim, 1, buffActionID)
+				wsBuffAura.Duration = time.Millisecond * 1500
+				
+				if spell.SpellID == 20920 || spell.SpellID == 407803 || spell.SpellID == 407778 || spell.SpellID == 407676 {
+					wsBuffAura.MaxStacks += 1
+				} else {
+					aura.Unit.AutoAttacks.ExtraMHAttack(sim, 1 + (wsBuffAura.MaxStacks - 2), buffActionID)
+					wsBuffAura.MaxStacks = 2		
+				}
+				
+
 			}
 		},
 	}))

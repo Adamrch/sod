@@ -70,7 +70,7 @@ func (paladin *Paladin) registerSealOfCommand() {
 			SpellSchool: core.SpellSchoolHoly,
 			DefenseType: core.DefenseTypeMelee,
 			ProcMask:    core.ProcMaskMeleeMHSpecial,
-			Flags:       core.SpellFlagMeleeMetrics | SpellFlag_RV,
+			Flags:       core.SpellFlagMeleeMetrics | SpellFlag_RV | SpellFlag_SaveWS,
 
 			SpellCode: SpellCode_PaladinJudgementOfCommand, // used in judgement.go
 

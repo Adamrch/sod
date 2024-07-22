@@ -51,7 +51,7 @@ stat_weights_results: {
  key: "TestMM-Lvl40-StatWeights-Default"
  value: {
   weights: 0
-  weights: 0.43956
+  weights: 0.43825
   weights: 0
   weights: 0
   weights: 0
@@ -67,9 +67,9 @@ stat_weights_results: {
   weights: 0
   weights: 0
   weights: 0
-  weights: 0.12437
-  weights: 4.36405
-  weights: 4.22378
+  weights: 0.1236
+  weights: 4.33261
+  weights: 4.21135
   weights: 0
   weights: 0
   weights: 0
@@ -99,22 +99,22 @@ stat_weights_results: {
 dps_results: {
  key: "TestMM-Lvl40-AllItems-BeastmasterArmor"
  value: {
-  dps: 359.82524
-  tps: 183.50732
+  dps: 359.08913
+  tps: 182.77122
  }
 }
 dps_results: {
  key: "TestMM-Lvl40-AllItems-SignetofBeasts-209823"
  value: {
-  dps: 368.73134
-  tps: 195.04026
+  dps: 367.95313
+  tps: 194.25302
  }
 }
 dps_results: {
  key: "TestMM-Lvl40-Average-Default"
  value: {
-  dps: 372.63028
-  tps: 198.58883
+  dps: 371.8297
+  tps: 197.78178
  }
 }
 dps_results: {
@@ -204,7 +204,7 @@ dps_results: {
 dps_results: {
  key: "TestMM-Lvl40-SwitchInFrontOfTarget-Default"
  value: {
-  dps: 356.92197
-  tps: 183.84602
+  dps: 356.23627
+  tps: 183.15254
  }
 }

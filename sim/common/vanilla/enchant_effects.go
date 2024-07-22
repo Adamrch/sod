@@ -222,7 +222,7 @@ func init() {
 				aura.Activate(sim)
 			},
 			OnSpellHitDealt: func(aura *core.Aura, sim *core.Simulation, spell *core.Spell, result *core.SpellResult) {
-				if !result.Landed() {
+				if !result.Landed() || spell.ProcMask.Matches(core.ProcMaskSupressChanceOnHit){
 					return
 				}
 

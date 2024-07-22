@@ -91,7 +91,7 @@ const (
 	BlazefuryMedallion             = 228354 // 17111
 	EmpyreanDemolisher             = 228397 // 17112
 	DreadbladeOfTheDestructor      = 228410
-	DreadbladeOfTheDestructor2     = 228498
+	//DreadbladeOfTheDestructor2     = 228498
 	PerditionsBladeMolten          = 228511
 	SkullforgeReaver               = 228542 // 13361
 	RunebladeOfBaronRivendare      = 228543 // 13505
@@ -435,7 +435,7 @@ func init() {
 	// https://www.wowhead.com/classic/item=228498/dreadblade-of-the-destructor
 	// TODO: Proc rate assumed and needs testing
 	itemhelpers.CreateWeaponProcSpell(DreadbladeOfTheDestructor, "Dreadblade of the Destructor", 1.0, makeDreadbladeOfTheDestructorEffect)
-	itemhelpers.CreateWeaponProcSpell(DreadbladeOfTheDestructor2, "Dreadblade of the Destructor", 1.0, makeDreadbladeOfTheDestructorEffect)
+	//itemhelpers.CreateWeaponProcSpell(DreadbladeOfTheDestructor2, "Dreadblade of the Destructor", 1.0, makeDreadbladeOfTheDestructorEffect)
 
 	// https://www.wowhead.com/classic/item=227842/ebon-fist
 	// Chance on hit: Sends a shadowy bolt at the enemy causing 125 to 275 Shadow damage.
@@ -1176,6 +1176,10 @@ func init() {
 			ProcMask: procMask,
 			PPM:      1, // Estimated based on data from WoW Armaments Discord
 			Handler: func(sim *core.Simulation, spell *core.Spell, result *core.SpellResult) {
+
+				if spell.ProcMask.Matches(core.ProcMaskSupressChanceOnHit){
+					return
+				}
 				strengthAura.Activate(sim)
 			},
 		})
@@ -1187,6 +1191,9 @@ func init() {
 			ProcMask: procMask,
 			PPM:      1, // Estimated based on data from WoW Armaments Discord
 			Handler: func(sim *core.Simulation, spell *core.Spell, result *core.SpellResult) {
+				if spell.ProcMask.Matches(core.ProcMaskSupressChanceOnHit){
+					return
+				}
 				enrageAura.Activate(sim)
 			},
 		})
@@ -1437,6 +1444,7 @@ func init() {
 
 			ApplyEffects: func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
 				result := spell.CalcAndDealDamage(sim, target, sim.Roll(273, 333), spell.OutcomeMagicHitAndCrit)
+
 				if result.Landed() {
 					spell.Dot(target).Apply(sim)
 				}
@@ -1450,6 +1458,9 @@ func init() {
 			ProcMask: core.ProcMaskMelee,
 			PPM:      1, // Estimated based on data from WoW Armaments Discord
 			Handler: func(sim *core.Simulation, spell *core.Spell, result *core.SpellResult) {
+				if spell.ProcMask.Matches(core.ProcMaskSupressChanceOnHit){
+					return
+				}
 				purgedByFireSpell.Cast(sim, result.Target)
 			},
 		})
@@ -1766,7 +1777,7 @@ func init() {
 	// 		},
 	// 	})
 	// })
-
+	
 	// https://www.wowhead.com/classic/item=228347/typhoon
 	// Chance on hit: Grants an extra attack on your next swing.
 	// TODO: Proc rate assumed and needs testing
@@ -1779,6 +1790,10 @@ func init() {
 			ProcMask: core.ProcMaskMelee,
 			PPM:      1.0,
 			Handler: func(sim *core.Simulation, spell *core.Spell, result *core.SpellResult) {
+			
+				if spell.ProcMask.Matches(core.ProcMaskSupressChanceOnHit){
+					return
+				}
 				character.AutoAttacks.ExtraMHAttack(sim, 1, core.ActionID{SpellID: 461985})
 			},
 		})
@@ -2469,6 +2484,23 @@ func makeDreadbladeOfTheDestructorEffect(character *core.Character) *core.Spell 
 			},
 		})
 	})
+	
+	character.GetOrRegisterAura(core.Aura{
+		Label:      "Cursed Blade",
+		ActionID:   core.ActionID{SpellID: 462228},
+		Duration:   core.NeverExpires,
+		BuildPhase: core.CharacterBuildPhaseBuffs,
+		OnReset: func(aura *core.Aura, sim *core.Simulation) {
+			aura.Activate(sim)
+			character.PseudoStats.MeleeSpeedMultiplier *= 1.05
+			character.AddStatDynamic(sim, stats.MeleeCrit, 2*core.CritRatingPerCritChance)
+			//character.AddStatDynamic(sim, stats.RangedCrit, 1.02)
+		},
+		//OnGain: func(aura *core.Aura, sim *core.Simulation) {
+
+		//},
+	})	
+	
 	return character.RegisterSpell(core.SpellConfig{
 		ActionID:    actionID,
 		SpellSchool: core.SpellSchoolShadow,
