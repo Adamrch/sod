@@ -249,7 +249,7 @@ stat_weights_results: {
   weights: 0
   weights: 0
   weights: 0
-  weights: 1.01207
+  weights: 1.02153
   weights: 0
   weights: 0.82959
   weights: 0
@@ -259,7 +259,7 @@ stat_weights_results: {
   weights: 0.57563
   weights: 0
   weights: 0
-  weights: 6.87212
+  weights: 6.86426
   weights: 3.28126
   weights: 0
   weights: 0
@@ -300,16 +300,16 @@ stat_weights_results: {
   weights: 0
   weights: 0
   weights: 0
-  weights: 1.09789
+  weights: 1.10089
   weights: 0
-  weights: 0.35036
-  weights: 0
-  weights: 0
-  weights: 0.74753
+  weights: 0.35099
   weights: 0
   weights: 0
-  weights: 13.90659
-  weights: 6.07129
+  weights: 0.7499
+  weights: 0
+  weights: 0
+  weights: 14.16001
+  weights: 6.44393
   weights: 0
   weights: 0
   weights: 0
@@ -349,16 +349,16 @@ stat_weights_results: {
   weights: 0
   weights: 0
   weights: 0
-  weights: 1.568
+  weights: 1.57343
   weights: 0
-  weights: 0.48506
-  weights: 0
-  weights: 0
-  weights: 1.08294
+  weights: 0.48901
   weights: 0
   weights: 0
+  weights: 1.08442
   weights: 0
-  weights: 14.26595
+  weights: 0
+  weights: 0
+  weights: 9.43178
   weights: 0
   weights: 0
   weights: 0
@@ -491,8 +491,8 @@ dps_results: {
 dps_results: {
  key: "TestElemental-Lvl40-Average-Default"
  value: {
-  dps: 592.37691
-  tps: 511.29122
+  dps: 594.07923
+  tps: 513.00231
  }
 }
 dps_results: {
@@ -582,15 +582,15 @@ dps_results: {
 dps_results: {
  key: "TestElemental-Lvl40-SwitchInFrontOfTarget-Default"
  value: {
-  dps: 590.60582
-  tps: 509.71089
+  dps: 592.29174
+  tps: 511.40901
  }
 }
 dps_results: {
  key: "TestElemental-Lvl50-Average-Default"
  value: {
-  dps: 1236.32487
-  tps: 1107.44575
+  dps: 1236.61759
+  tps: 1107.76373
  }
 }
 dps_results: {
@@ -680,78 +680,78 @@ dps_results: {
 dps_results: {
  key: "TestElemental-Lvl50-SwitchInFrontOfTarget-Default"
  value: {
-  dps: 1223.71407
-  tps: 1094.65005
+  dps: 1222.52549
+  tps: 1096.63385
  }
 }
 dps_results: {
  key: "TestElemental-Lvl60-AllItems-BloodGuard'sInscribedMail"
  value: {
-  dps: 1374.27788
-  tps: 1433.21448
+  dps: 1384.59894
+  tps: 1444.42417
  }
 }
 dps_results: {
  key: "TestElemental-Lvl60-AllItems-BloodGuard'sMail"
  value: {
-  dps: 1376.08882
-  tps: 1435.3166
+  dps: 1387.20882
+  tps: 1447.13424
  }
 }
 dps_results: {
  key: "TestElemental-Lvl60-AllItems-BloodGuard'sPulsingMail"
  value: {
-  dps: 1489.24368
-  tps: 1548.40792
+  dps: 1496.69205
+  tps: 1556.06585
  }
 }
 dps_results: {
  key: "TestElemental-Lvl60-AllItems-EmeraldChainmail"
  value: {
-  dps: 1448.9433
-  tps: 1506.83607
+  dps: 1459.91526
+  tps: 1518.09031
  }
 }
 dps_results: {
  key: "TestElemental-Lvl60-AllItems-EmeraldLadenChain"
  value: {
-  dps: 1372.93455
-  tps: 1432.30866
+  dps: 1383.65241
+  tps: 1443.29024
  }
 }
 dps_results: {
  key: "TestElemental-Lvl60-AllItems-EmeraldScalemail"
  value: {
-  dps: 1374.76668
-  tps: 1434.14079
+  dps: 1385.84293
+  tps: 1445.48076
  }
 }
 dps_results: {
  key: "TestElemental-Lvl60-AllItems-OstracizedBerserker'sBattlemail"
  value: {
-  dps: 1948.89779
-  tps: 1987.83243
+  dps: 1946.90981
+  tps: 1985.06445
  }
 }
 dps_results: {
  key: "TestElemental-Lvl60-AllItems-ShunnedDevotee'sChainmail"
  value: {
-  dps: 2070.1007
-  tps: 2106.81837
+  dps: 2054.67706
+  tps: 2090.08401
  }
 }
 dps_results: {
  key: "TestElemental-Lvl60-AllItems-TheFiveThunders"
  value: {
-  dps: 1270.89892
-  tps: 1256.70008
+  dps: 1274.29718
+  tps: 1259.93489
  }
 }
 dps_results: {
  key: "TestElemental-Lvl60-Average-Default"
  value: {
-  dps: 2597.69262
-  tps: 1639.18923
+  dps: 2605.59526
+  tps: 1644.73716
  }
 }
 dps_results: {
@@ -841,7 +841,7 @@ dps_results: {
 dps_results: {
  key: "TestElemental-Lvl60-SwitchInFrontOfTarget-Default"
  value: {
-  dps: 2550.8795
-  tps: 1604.13715
+  dps: 2583.86393
+  tps: 1622.87921
  }
 }

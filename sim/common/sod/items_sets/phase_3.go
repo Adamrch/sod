@@ -261,7 +261,17 @@ var ItemSetWailingBerserkersPlateArmor = core.NewItemSet(core.ItemSet{
 			c := agent.GetCharacter()
 
 			handler := func(sim *core.Simulation, spell *core.Spell, _ *core.SpellResult) {
-				c.AutoAttacks.ExtraMHAttack(sim, 1, core.ActionID{SpellID: 449970})
+				//if spell.SpellID == 20966 || spell.SpellID == 407778 || spell.SpellID == 407676 || spell.SpellID == 407803 {
+				//	c.AutoAttacks.StoreExtraMHAttack(sim, 1, core.ActionID{SpellID: 449970}, spell.ActionID)
+				//} else {
+					//c.AutoAttacks.ExtraMHAttack(sim, 1, core.ActionID{SpellID: 449970}, spell.ActionID)		
+				//}
+				
+				if spell.Flags.Matches(core.SpellFlagBatchStopAttackMacro) {
+					c.AutoAttacks.StoreExtraMHAttack(sim, 1, core.ActionID{SpellID: 449970}, spell.ActionID)
+				} else {
+					c.AutoAttacks.ExtraMHAttack(sim, 1, core.ActionID{SpellID: 449970}, spell.ActionID)
+				}
 			}
 			
 			core.MakeProcTriggerAura(&c.Unit, core.ProcTrigger{

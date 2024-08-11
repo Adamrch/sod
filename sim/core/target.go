@@ -221,6 +221,8 @@ func GetWeaponSkill(unit *Unit, weapon *Item) float64 {
 		default:
 			return 0
 		}
+	} else if weapon.RangedWeaponType == proto.RangedWeaponType_RangedWeaponTypeUnknown {
+		return float64(unit.Level) * 5.0
 	} else {
 		switch weapon.WeaponType {
 		case proto.WeaponType_WeaponTypeAxe:

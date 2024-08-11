@@ -249,7 +249,7 @@ stat_weights_results: {
   weights: 0
   weights: 0
   weights: 0
-  weights: 0.21969
+  weights: 0.20828
   weights: 0
   weights: 0.61747
   weights: 0
@@ -259,7 +259,7 @@ stat_weights_results: {
   weights: 0
   weights: 0
   weights: 0
-  weights: 4.08757
+  weights: 4.03765
   weights: 4.0653
   weights: 0
   weights: 0
@@ -298,18 +298,18 @@ stat_weights_results: {
   weights: 0
   weights: 0
   weights: 0
-  weights: 4.08211
+  weights: -3.65261
   weights: 0
-  weights: 0.33259
-  weights: 0
-  weights: 0
+  weights: -3.74325
   weights: 0
   weights: 0
   weights: 0
   weights: 0
   weights: 0
   weights: 0
-  weights: 4.80403
+  weights: 0
+  weights: 0
+  weights: 10.89477
   weights: 0
   weights: 0
   weights: 0
@@ -347,18 +347,18 @@ stat_weights_results: {
   weights: 0
   weights: 0
   weights: 0
-  weights: -25.43775
+  weights: 4.21401
   weights: 0
-  weights: -2.72725
-  weights: 0
-  weights: 0
+  weights: 1.2311
   weights: 0
   weights: 0
   weights: 0
   weights: 0
   weights: 0
-  weights: 15.34428
-  weights: 33.49044
+  weights: 0
+  weights: 0
+  weights: 9.12971
+  weights: 8.67498
   weights: 0
   weights: 0
   weights: 0
@@ -456,15 +456,15 @@ dps_results: {
 dps_results: {
  key: "TestDestruction-Lvl40-AllItems-DeathmistRaiment"
  value: {
-  dps: 140.02625
-  tps: 90.88508
+  dps: 167.39304
+  tps: 118.27465
  }
 }
 dps_results: {
  key: "TestDestruction-Lvl40-Average-Default"
  value: {
-  dps: 492.50359
-  tps: 1172.02446
+  dps: 510.98697
+  tps: 1199.74952
  }
 }
 dps_results: {
@@ -512,24 +512,24 @@ dps_results: {
 dps_results: {
  key: "TestDestruction-Lvl40-SwitchInFrontOfTarget-Default"
  value: {
-  dps: 485.48489
-  tps: 1158.93866
+  dps: 506.71869
+  tps: 1190.78935
  }
 }
 dps_results: {
  key: "TestDestruction-Lvl50-AllItems-DeathmistRaiment"
  value: {
-  dps: 334.01979
-  tps: 228.28192
-  hps: 7.27404
+  dps: 375.76661
+  tps: 270.07121
+  hps: 7.77799
  }
 }
 dps_results: {
  key: "TestDestruction-Lvl50-Average-Default"
  value: {
-  dps: 1370.4055
-  tps: 2389.49034
-  hps: 12.33226
+  dps: 1407.472
+  tps: 2444.69897
+  hps: 12.46678
  }
 }
 dps_results: {
@@ -583,79 +583,79 @@ dps_results: {
 dps_results: {
  key: "TestDestruction-Lvl50-SwitchInFrontOfTarget-Default"
  value: {
-  dps: 1354.38663
-  tps: 2364.10833
-  hps: 12.52215
+  dps: 1385.47618
+  tps: 2406.93155
+  hps: 12.68589
  }
 }
 dps_results: {
  key: "TestDestruction-Lvl60-AllItems-BloodGuard'sDreadweave"
  value: {
-  dps: 1354.79168
-  tps: 1694.25992
+  dps: 1380.59112
+  tps: 1720.05936
  }
 }
 dps_results: {
  key: "TestDestruction-Lvl60-AllItems-DeathmistRaiment"
  value: {
-  dps: 1194.07082
-  tps: 1475.80534
+  dps: 1214.19506
+  tps: 1493.19557
  }
 }
 dps_results: {
  key: "TestDestruction-Lvl60-AllItems-EmeraldEnchantedVestments"
  value: {
-  dps: 1366.48982
-  tps: 1710.93874
+  dps: 1392.26911
+  tps: 1736.71802
  }
 }
 dps_results: {
  key: "TestDestruction-Lvl60-AllItems-InfernalPactEssence-216509"
  value: {
-  dps: 2135.42458
-  tps: 3845.22842
+  dps: 2190.94785
+  tps: 3938.61331
  }
 }
 dps_results: {
  key: "TestDestruction-Lvl60-AllItems-IronweaveBattlesuit"
  value: {
-  dps: 1150.77135
-  tps: 1413.62915
+  dps: 1178.29265
+  tps: 1441.15045
  }
 }
 dps_results: {
  key: "TestDestruction-Lvl60-AllItems-Knight-Lieutenant'sDreadweave"
  value: {
-  dps: 1354.79168
-  tps: 1694.25992
+  dps: 1380.59112
+  tps: 1720.05936
  }
 }
 dps_results: {
  key: "TestDestruction-Lvl60-AllItems-MalevolentProphet'sVestments"
  value: {
-  dps: 1744.19242
-  tps: 3209.76144
+  dps: 1807.94105
+  tps: 3305.35172
  }
 }
 dps_results: {
  key: "TestDestruction-Lvl60-AllItems-NightmareProphet'sGarb"
  value: {
-  dps: 1737.22396
-  tps: 3186.91968
+  dps: 1798.37259
+  tps: 3278.64263
  }
 }
 dps_results: {
  key: "TestDestruction-Lvl60-AllItems-ZilaGular-223214"
  value: {
-  dps: 2134.00196
-  tps: 3845.22842
+  dps: 2189.68636
+  tps: 3938.61331
  }
 }
 dps_results: {
  key: "TestDestruction-Lvl60-Average-Default"
  value: {
-  dps: 2143.69874
-  tps: 3864.07475
+  dps: 2211.66369
+  tps: 3968.47443
  }
 }
 dps_results: {
@@ -703,7 +703,7 @@ dps_results: {
 dps_results: {
  key: "TestDestruction-Lvl60-SwitchInFrontOfTarget-Default"
  value: {
-  dps: 2093.68197
-  tps: 3787.20384
+  dps: 2167.1926
+  tps: 3891.75986
  }
 }

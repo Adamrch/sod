@@ -193,6 +193,9 @@ func NewCharacter(party *Party, partyIndex int, player *proto.Player) Character 
 
 	character.PseudoStats.CanBlock = character.OffHand().WeaponType == proto.WeaponType_WeaponTypeShield
 	character.PseudoStats.InFrontOfTarget = player.InFrontOfTarget
+	character.PseudoStats.IsUsingCrusaderStrikeStopAttack = player.IsUsingCrusaderStrikeStopAttack
+	character.PseudoStats.IsUsingJudgementStopAttack = player.IsUsingJudgementStopAttack
+	character.PseudoStats.IsUsingDivineStormStopAttack = player.IsUsingDivineStormStopAttack
 
 	if player.EnableItemSwap && player.ItemSwap != nil {
 		character.enableItemSwap(player.ItemSwap)

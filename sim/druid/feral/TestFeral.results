@@ -197,8 +197,8 @@ character_stats_results: {
 stat_weights_results: {
  key: "TestFeral-Lvl25-StatWeights-Default"
  value: {
-  weights: 0.60528
-  weights: 0.55185
+  weights: 0.60117
+  weights: 0.55472
   weights: 0
   weights: 0
   weights: 0
@@ -214,9 +214,9 @@ stat_weights_results: {
   weights: 0
   weights: 0
   weights: 0
-  weights: 0.27513
-  weights: 2.26692
-  weights: 2.26417
+  weights: 0.27326
+  weights: 2.01905
+  weights: 2.24351
   weights: 0
   weights: 0
   weights: 0
@@ -246,8 +246,8 @@ stat_weights_results: {
 stat_weights_results: {
  key: "TestFeral-Lvl40-StatWeights-Default"
  value: {
-  weights: 1.05745
-  weights: 1.00749
+  weights: 1.05103
+  weights: 0.91089
   weights: 0
   weights: 0
   weights: 0
@@ -263,9 +263,9 @@ stat_weights_results: {
   weights: 0
   weights: 0
   weights: 0
-  weights: 0.4622
-  weights: 4.49328
-  weights: 5.65816
+  weights: 0.45939
+  weights: 4.96891
+  weights: 5.18321
   weights: 0
   weights: 0
   weights: 0
@@ -295,8 +295,8 @@ stat_weights_results: {
 stat_weights_results: {
  key: "TestFeral-Lvl50-StatWeights-Default"
  value: {
-  weights: 1.88671
-  weights: 1.82039
+  weights: 1.88506
+  weights: 1.83919
   weights: 0
   weights: 0
   weights: 0
@@ -312,9 +312,9 @@ stat_weights_results: {
   weights: 0
   weights: 0
   weights: 0
-  weights: 0.79407
-  weights: 22.81264
-  weights: 14.84501
+  weights: 0.79338
+  weights: 21.61596
+  weights: 14.60537
   weights: 0
   weights: 0
   weights: 0
@@ -344,8 +344,8 @@ stat_weights_results: {
 stat_weights_results: {
  key: "TestFeral-Lvl60-StatWeights-Default"
  value: {
-  weights: 2.25862
-  weights: 2.17874
+  weights: 2.2298
+  weights: 2.16258
   weights: 0
   weights: 0
   weights: 0
@@ -361,9 +361,9 @@ stat_weights_results: {
   weights: 0
   weights: 0
   weights: 0
-  weights: 0.85554
-  weights: 39.34495
-  weights: 25.01025
+  weights: 0.84462
+  weights: 28.89382
+  weights: 25.63684
   weights: 0
   weights: 0
   weights: 0
@@ -393,15 +393,15 @@ stat_weights_results: {
 dps_results: {
  key: "TestFeral-Lvl25-AllItems-FeralheartRaiment"
  value: {
-  dps: 279.44253
-  tps: 201.9676
+  dps: 278.3315
+  tps: 201.1821
  }
 }
 dps_results: {
  key: "TestFeral-Lvl25-Average-Default"
  value: {
-  dps: 271.65969
-  tps: 197.883
+  dps: 272.29636
+  tps: 198.41716
  }
 }
 dps_results: {
@@ -659,22 +659,22 @@ dps_results: {
 dps_results: {
  key: "TestFeral-Lvl25-SwitchInFrontOfTarget-Default"
  value: {
-  dps: 193.88076
-  tps: 141.60632
+  dps: 192.444
+  tps: 140.46147
  }
 }
 dps_results: {
  key: "TestFeral-Lvl40-AllItems-FeralheartRaiment"
  value: {
-  dps: 553.45804
-  tps: 407.86129
+  dps: 554.66291
+  tps: 409.1447
  }
 }
 dps_results: {
  key: "TestFeral-Lvl40-Average-Default"
  value: {
-  dps: 844.89459
-  tps: 619.69568
+  dps: 844.34834
+  tps: 619.6909
  }
 }
 dps_results: {
@@ -932,24 +932,24 @@ dps_results: {
 dps_results: {
  key: "TestFeral-Lvl40-SwitchInFrontOfTarget-Default"
  value: {
-  dps: 476.27226
-  tps: 341.12868
+  dps: 472.83875
+  tps: 338.70579
  }
 }
 dps_results: {
  key: "TestFeral-Lvl50-AllItems-FeralheartRaiment"
  value: {
-  dps: 959.87947
-  tps: 701.57772
-  hps: 9.02419
+  dps: 966.87647
+  tps: 706.9524
+  hps: 9.18248
  }
 }
 dps_results: {
  key: "TestFeral-Lvl50-Average-Default"
  value: {
-  dps: 2106.49649
-  tps: 1512.97124
-  hps: 10.22345
+  dps: 2106.96599
+  tps: 1513.62425
+  hps: 10.38692
  }
 }
 dps_results: {
@@ -1243,107 +1243,107 @@ dps_results: {
 dps_results: {
  key: "TestFeral-Lvl50-SwitchInFrontOfTarget-Default"
  value: {
-  dps: 1267.25341
-  tps: 904.985
-  hps: 9.40755
+  dps: 1266.49008
+  tps: 904.36386
+  hps: 9.77702
  }
 }
 dps_results: {
  key: "TestFeral-Lvl60-AllItems-BloodGuard'sCracklingLeather"
  value: {
-  dps: 1649.50759
-  tps: 1200.42506
+  dps: 1652.52108
+  tps: 1203.05364
  }
 }
 dps_results: {
  key: "TestFeral-Lvl60-AllItems-BloodGuard'sLeather"
  value: {
-  dps: 1738.97653
-  tps: 1264.72858
+  dps: 1737.18965
+  tps: 1263.73793
  }
 }
 dps_results: {
  key: "TestFeral-Lvl60-AllItems-BloodGuard'sRestoredLeather"
  value: {
-  dps: 1585.23449
-  tps: 1153.3668
+  dps: 1584.82665
+  tps: 1153.27722
  }
 }
 dps_results: {
  key: "TestFeral-Lvl60-AllItems-CoagulateBloodguard'sLeathers"
  value: {
-  dps: 2365.42742
-  tps: 1704.667
+  dps: 2358.37593
+  tps: 1700.01708
  }
 }
 dps_results: {
  key: "TestFeral-Lvl60-AllItems-EmeraldDreamkeeperGarb"
  value: {
-  dps: 1593.34999
-  tps: 1159.12881
+  dps: 1593.85515
+  tps: 1159.68746
  }
 }
 dps_results: {
  key: "TestFeral-Lvl60-AllItems-EmeraldLeathers"
  value: {
-  dps: 1729.33797
-  tps: 1257.8852
+  dps: 1727.62596
+  tps: 1256.94771
  }
 }
 dps_results: {
  key: "TestFeral-Lvl60-AllItems-EmeraldWatcherVestments"
  value: {
-  dps: 1602.22159
-  tps: 1165.54746
+  dps: 1602.81077
+  tps: 1166.31834
  }
 }
 dps_results: {
  key: "TestFeral-Lvl60-AllItems-ExiledProphet'sRaiment"
  value: {
-  dps: 2209.90505
-  tps: 1600.39033
+  dps: 2198.94576
+  tps: 1593.30547
  }
 }
 dps_results: {
  key: "TestFeral-Lvl60-AllItems-FeralheartRaiment"
  value: {
-  dps: 1598.48494
-  tps: 1155.78157
+  dps: 1602.13167
+  tps: 1157.9928
  }
 }
 dps_results: {
  key: "TestFeral-Lvl60-AllItems-Knight-Lieutenant'sCracklingLeather"
  value: {
-  dps: 1649.50759
-  tps: 1200.42506
+  dps: 1652.52108
+  tps: 1203.05364
  }
 }
 dps_results: {
  key: "TestFeral-Lvl60-AllItems-Knight-Lieutenant'sLeather"
  value: {
-  dps: 1738.97653
-  tps: 1264.72858
+  dps: 1737.18965
+  tps: 1263.73793
  }
 }
 dps_results: {
  key: "TestFeral-Lvl60-AllItems-Knight-Lieutenant'sRestoredLeather"
  value: {
-  dps: 1585.23449
-  tps: 1153.3668
+  dps: 1584.82665
+  tps: 1153.27722
  }
 }
 dps_results: {
  key: "TestFeral-Lvl60-AllItems-LostWorshipper'sArmor"
  value: {
-  dps: 2291.26719
-  tps: 1659.40932
+  dps: 2278.39429
+  tps: 1650.89088
  }
 }
 dps_results: {
  key: "TestFeral-Lvl60-Average-Default"
  value: {
-  dps: 3710.76268
-  tps: 2659.56239
+  dps: 3700.2252
+  tps: 2652.32168
  }
 }
 dps_results: {
@@ -1601,7 +1601,7 @@ dps_results: {
 dps_results: {
  key: "TestFeral-Lvl60-SwitchInFrontOfTarget-Default"
  value: {
-  dps: 2666.63792
-  tps: 1897.57406
+  dps: 2677.31522
+  tps: 1905.16849
  }
 }

@@ -400,6 +400,10 @@ type PseudoStats struct {
 	IncreasedMissChance  float64 // Insect Swarm and Scorpid Sting
 	DodgeReduction       float64 // Used by Warrior talent 'Weapon Mastery' and SWP boss auras.
 
+	IsUsingCrusaderStrikeStopAttack bool // Used to store Wild Strikes after specials
+	IsUsingJudgementStopAttack bool // Used to store Wild Strikes after specials
+	IsUsingDivineStormStopAttack bool // Used to store Wild Strikes after specials
+
 	MobTypeAttackPower float64 // Bonus AP against mobs of the current type.
 	MobTypeSpellPower  float64 // Bonus SP against mobs of the current type.
 

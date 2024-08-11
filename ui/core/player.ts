@@ -249,6 +249,10 @@ export class Player<SpecType extends Spec> {
 	private isbCrit = 25.0;
 	private isbWarlocks = 1.0;
 	private isbSpriests = 0;
+	
+	private isUsingCrusaderStrikeStopAttack = false;
+	private isUsingDivineStormStopAttack = false;
+	private isUsingJudgementStopAttack = false;
 
 	private readonly autoRotationGenerator: AutoRotationGenerator<SpecType> | null = null;
 	private readonly simpleRotationGenerator: SimpleRotationGenerator<SpecType> | null = null;
@@ -888,6 +892,39 @@ export class Player<SpecType extends Spec> {
 		this.channelClipDelay = newChannelClipDelay;
 		this.miscOptionsChangeEmitter.emit(eventID);
 	}
+	
+	setIsUsingCrusaderStrikeStopAttack(eventID: EventID, newIsUsingCrusaderStrikeStopAttack: boolean) {
+		if (newIsUsingCrusaderStrikeStopAttack == this.isUsingCrusaderStrikeStopAttack) return;
+
+		this.isUsingCrusaderStrikeStopAttack = newIsUsingCrusaderStrikeStopAttack;
+		this.miscOptionsChangeEmitter.emit(eventID);
+	}
+	
+	setIsUsingJudgementStopAttack(eventID: EventID, newIsUsingJudgementStopAttack: boolean) {
+		if (newIsUsingJudgementStopAttack == this.isUsingJudgementStopAttack) return;
+
+		this.isUsingJudgementStopAttack = newIsUsingJudgementStopAttack;
+		this.miscOptionsChangeEmitter.emit(eventID);
+	}
+
+	setIsUsingDivineStormStopAttack(eventID: EventID, newIsUsingDivineStormStopAttack: boolean) {
+		if (newIsUsingDivineStormStopAttack == this.isUsingDivineStormStopAttack) return;
+
+		this.isUsingDivineStormStopAttack = newIsUsingDivineStormStopAttack;
+		this.miscOptionsChangeEmitter.emit(eventID);
+	}
+
+	getIsUsingCrusaderStrikeStopAttack(): boolean {
+		return this.isUsingCrusaderStrikeStopAttack;
+	}
+	
+	getIsUsingJudgementStopAttack(): boolean {
+		return this.isUsingJudgementStopAttack;
+	}
+	
+	getIsUsingDivineStormStopAttack(): boolean {
+		return this.isUsingDivineStormStopAttack;
+	}
 
 	getInFrontOfTarget(): boolean {
 		return this.inFrontOfTarget;
@@ -1321,6 +1358,9 @@ export class Player<SpecType extends Spec> {
 				reactionTimeMs: this.getReactionTime(),
 				channelClipDelayMs: this.getChannelClipDelay(),
 				inFrontOfTarget: this.getInFrontOfTarget(),
+				isUsingCrusaderStrikeStopAttack: this.getIsUsingCrusaderStrikeStopAttack(),
+				isUsingJudgementStopAttack: this.getIsUsingJudgementStopAttack(),
+				isUsingDivineStormStopAttack: this.getIsUsingDivineStormStopAttack(),
 				distanceFromTarget: this.getDistanceFromTarget(),
 				healingModel: this.getHealingModel(),
 				isbUsingShadowflame: this.getIsbUsingShadowflame(),
@@ -1380,6 +1420,9 @@ export class Player<SpecType extends Spec> {
 				this.setReactionTime(eventID, proto.reactionTimeMs);
 				this.setChannelClipDelay(eventID, proto.channelClipDelayMs);
 				this.setInFrontOfTarget(eventID, proto.inFrontOfTarget);
+				this.setIsUsingCrusaderStrikeStopAttack(eventID, proto.isUsingCrusaderStrikeStopAttack);
+				this.setIsUsingJudgementStopAttack(eventID, proto.isUsingJudgementStopAttack);
+				this.setIsUsingDivineStormStopAttack(eventID, proto.isUsingDivineStormStopAttack);
 				this.setDistanceFromTarget(eventID, proto.distanceFromTarget);
 				this.setHealingModel(eventID, proto.healingModel || HealingModel.create());
 				this.setIsbSbFrequency(eventID, proto.isbSbFrequency);

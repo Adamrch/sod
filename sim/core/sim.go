@@ -56,6 +56,7 @@ type Simulation struct {
 
 	minWeaponAttackTime time.Duration
 	weaponAttacks       []*WeaponAttack
+	extraAttacks int32
 
 	minTaskTime time.Duration
 	tasks       []Task
@@ -511,6 +512,9 @@ func (sim *Simulation) advanceWeaponAttacks() {
 
 	sim.minWeaponAttackTime = NeverExpires
 	for _, wa := range sim.weaponAttacks {
+	        if sim.Log != nil {
+			sim.Log("advanceWeaponAttacks has %d extra attacks", wa.extraAttacks)
+		}
 		sim.minWeaponAttackTime = min(sim.minWeaponAttackTime, wa.trySwing(sim))
 	}
 }

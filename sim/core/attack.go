@@ -294,10 +294,23 @@ func (wa *WeaponAttack) swing(sim *Simulation) time.Duration {
 
 		if wa.extraAttacks > 0 {
 			// Ignore the first extra attack, that was used to speed up next attack
+			wa.swingAt = sim.CurrentTime + SpellBatchWindow
+			sim.rescheduleWeaponAttack(wa.swingAt)
+			//wa.spell.SetMetricsSplit(1)
+			
+			if sim.Log != nil {
+				wa.unit.Log(sim, "unleashes %d extra attacks, it is and extra attack though? %t", wa.extraAttacks, isExtraAttack)
+				wa.unit.Log(sim, "swing at %f and lastsing at %f", wa.swingAt, wa.lastSwingAt)
+			}
+
 			for i := int32(1); i < wa.extraAttacks; i++ {
 				// use original attacks for subsequent extra Attacks
 				wa.spell.Cast(sim, wa.unit.CurrentTarget)
 			}
+			
+			//wa.swingAt = sim.CurrentTime + wa.curSwingDuration
+		        //wa.lastSwingAt = sim.CurrentTime
+			
 			wa.extraAttacks = 0
 		}
 
@@ -646,14 +659,34 @@ func (aa *AutoAttacks) UpdateSwingTimers(sim *Simulation) {
 }
 
 // ExtraMHAttack should be used for all "extra attack" procs in Classic Era versions, including Wild Strikes and Hand of Justice. In vanilla, these procs don't actually grant a full extra attack, but instead just advance the MH swing timer.
-func (aa *AutoAttacks) ExtraMHAttack(sim *Simulation, attacks int32, actionID ActionID) {
+
+func (aa *AutoAttacks) ExtraMHAttack(sim *Simulation, attacks int32, actionID ActionID, triggerAction ActionID) {
+        if attacks == 0 {
+        	return
+        }
 	if sim.Log != nil {
-		aa.mh.unit.Log(sim, "gains %d extra attacks from %s", attacks, actionID)
+		aa.mh.unit.Log(sim, "gains %d extra attacks from %s triggered by %s", attacks, actionID, triggerAction)
 	}
 	aa.mh.swingAt = sim.CurrentTime + SpellBatchWindow
 	aa.mh.spell.SetMetricsSplit(1)
 	sim.rescheduleWeaponAttack(aa.mh.swingAt)
 	aa.mh.extraAttacks += attacks
+}
+
+func (aa *AutoAttacks) StoreExtraMHAttack(sim *Simulation, attacks int32, actionID ActionID, triggerAction ActionID) {
+        if attacks == 0 {
+        	return
+        }
+
+	aa.mh.extraAttacks = min(aa.mh.extraAttacks + attacks, 4) // Max is 4 stored extra attacks
+	
+	if sim.Log != nil {
+		aa.mh.unit.Log(sim, "stores %d extra attacks from %s triggered by %s, total is %d", attacks, actionID, triggerAction, aa.mh.extraAttacks)
+	}
+}
+
+func (aa *AutoAttacks) GetExtraMHAttacks() int32 {
+	return aa.mh.extraAttacks
 }
 
 // ExtraRangedAttack should be used for all "extra ranged attack" procs in Classic Era versions, including Hand of Injustice. In vanilla, these procs don't actually grant a full extra attack, but instead just advance the Ranged swing timer.

@@ -113,6 +113,42 @@ export const InFrontOfTarget = {
 	},
 };
 
+export const CrusaderStrikeStopAttack = {
+	id: 'crusader-strike-stop-attack',
+	type: 'boolean' as const,
+	label: 'Crusader Strike Stop Attack Macro',
+	labelTooltip: '',
+	changedEvent: (player: Player<any>) => player.miscOptionsChangeEmitter,
+	getValue: (player: Player<any>) => player.getIsUsingCrusaderStrikeStopAttack(),
+	setValue: (eventID: EventID, player: Player<any>, newValue: boolean) => {
+		player.setIsUsingCrusaderStrikeStopAttack(eventID, newValue);
+	},
+};
+
+export const JudgementStopAttack = {
+	id: 'judgement-stop-attack',
+	type: 'boolean' as const,
+	label: 'Judgement Stop Attack Macro',
+	labelTooltip: '',
+	changedEvent: (player: Player<any>) => player.miscOptionsChangeEmitter,
+	getValue: (player: Player<any>) => player.getIsUsingJudgementStopAttack(),
+	setValue: (eventID: EventID, player: Player<any>, newValue: boolean) => {
+		player.setIsUsingJudgementStopAttack(eventID, newValue);
+	},
+};
+
+export const DivineStormStopAttack = {
+	id: 'divine-storm-stop-attack',
+	type: 'boolean' as const,
+	label: 'Divine Storm Stop Attack Macro',
+	labelTooltip: '',
+	changedEvent: (player: Player<any>) => player.miscOptionsChangeEmitter,
+	getValue: (player: Player<any>) => player.getIsUsingDivineStormStopAttack(),
+	setValue: (eventID: EventID, player: Player<any>, newValue: boolean) => {
+		player.setIsUsingDivineStormStopAttack(eventID, newValue);
+	},
+};
+
 export const DistanceFromTarget = {
 	id: 'distance-from-target',
 	type: 'number' as const,

@@ -249,7 +249,7 @@ stat_weights_results: {
   weights: 0
   weights: 0
   weights: 0
-  weights: 0.07885
+  weights: 0.07886
   weights: 0
   weights: 0.80658
   weights: 0
@@ -259,8 +259,8 @@ stat_weights_results: {
   weights: 0
   weights: 0
   weights: 0
-  weights: 6.74713
-  weights: 5.56056
+  weights: 6.73739
+  weights: 5.56161
   weights: 0
   weights: 0
   weights: 0
@@ -358,7 +358,7 @@ stat_weights_results: {
   weights: 0
   weights: 0
   weights: 0
-  weights: 15.45437
+  weights: 15.47154
   weights: 0
   weights: 0
   weights: 0
@@ -498,15 +498,15 @@ dps_results: {
 dps_results: {
  key: "TestBalance-Lvl40-AllItems-FeralheartRaiment"
  value: {
-  dps: 220.23412
-  tps: 228.70955
+  dps: 222.89056
+  tps: 231.36599
  }
 }
 dps_results: {
  key: "TestBalance-Lvl40-Average-Default"
  value: {
-  dps: 650.65883
-  tps: 661.3911
+  dps: 653.72098
+  tps: 664.45325
  }
 }
 dps_results: {
@@ -596,15 +596,15 @@ dps_results: {
 dps_results: {
  key: "TestBalance-Lvl40-SwitchInFrontOfTarget-Default"
  value: {
-  dps: 646.98972
-  tps: 657.75225
+  dps: 649.86591
+  tps: 660.62844
  }
 }
 dps_results: {
  key: "TestBalance-Lvl50-AllItems-FeralheartRaiment"
  value: {
-  dps: 469.58372
-  tps: 484.3239
+  dps: 473.36667
+  tps: 488.13184
  }
 }
 dps_results: {
@@ -708,99 +708,99 @@ dps_results: {
 dps_results: {
  key: "TestBalance-Lvl60-AllItems-BloodGuard'sCracklingLeather"
  value: {
-  dps: 1014.07085
-  tps: 1031.70744
+  dps: 1031.82829
+  tps: 1049.50913
  }
 }
 dps_results: {
  key: "TestBalance-Lvl60-AllItems-BloodGuard'sLeather"
  value: {
-  dps: 952.9916
-  tps: 971.05102
+  dps: 963.26074
+  tps: 981.33
  }
 }
 dps_results: {
  key: "TestBalance-Lvl60-AllItems-BloodGuard'sRestoredLeather"
  value: {
-  dps: 925.49029
-  tps: 942.83188
+  dps: 940.35613
+  tps: 957.72722
  }
 }
 dps_results: {
  key: "TestBalance-Lvl60-AllItems-CoagulateBloodguard'sLeathers"
  value: {
-  dps: 1273.27377
-  tps: 1291.99695
+  dps: 1293.52397
+  tps: 1312.27584
  }
 }
 dps_results: {
  key: "TestBalance-Lvl60-AllItems-EmeraldDreamkeeperGarb"
  value: {
-  dps: 922.8811
-  tps: 940.28169
+  dps: 944.46286
+  tps: 961.92245
  }
 }
 dps_results: {
  key: "TestBalance-Lvl60-AllItems-EmeraldLeathers"
  value: {
-  dps: 952.03022
-  tps: 970.08964
+  dps: 962.12545
+  tps: 980.19471
  }
 }
 dps_results: {
  key: "TestBalance-Lvl60-AllItems-EmeraldWatcherVestments"
  value: {
-  dps: 972.84416
-  tps: 990.29884
+  dps: 991.86354
+  tps: 1009.33296
  }
 }
 dps_results: {
  key: "TestBalance-Lvl60-AllItems-ExiledProphet'sRaiment"
  value: {
-  dps: 1279.43687
-  tps: 1297.84538
+  dps: 1296.84516
+  tps: 1315.27244
  }
 }
 dps_results: {
  key: "TestBalance-Lvl60-AllItems-FeralheartRaiment"
  value: {
-  dps: 937.50561
-  tps: 956.23941
+  dps: 960.98695
+  tps: 979.69084
  }
 }
 dps_results: {
  key: "TestBalance-Lvl60-AllItems-Knight-Lieutenant'sCracklingLeather"
  value: {
-  dps: 1014.07085
-  tps: 1031.70744
+  dps: 1031.82829
+  tps: 1049.50913
  }
 }
 dps_results: {
  key: "TestBalance-Lvl60-AllItems-Knight-Lieutenant'sLeather"
  value: {
-  dps: 952.9916
-  tps: 971.05102
+  dps: 963.26074
+  tps: 981.33
  }
 }
 dps_results: {
  key: "TestBalance-Lvl60-AllItems-Knight-Lieutenant'sRestoredLeather"
  value: {
-  dps: 925.49029
-  tps: 942.83188
+  dps: 940.35613
+  tps: 957.72722
  }
 }
 dps_results: {
  key: "TestBalance-Lvl60-AllItems-LostWorshipper'sArmor"
  value: {
-  dps: 1355.11401
-  tps: 1373.84702
+  dps: 1368.97583
+  tps: 1387.65886
  }
 }
 dps_results: {
  key: "TestBalance-Lvl60-Average-Default"
  value: {
-  dps: 2597.94607
-  tps: 2616.83981
+  dps: 2607.74766
+  tps: 2626.63932
  }
 }
 dps_results: {
@@ -890,7 +890,7 @@ dps_results: {
 dps_results: {
  key: "TestBalance-Lvl60-SwitchInFrontOfTarget-Default"
  value: {
-  dps: 2562.32203
-  tps: 2581.43317
+  dps: 2577.2639
+  tps: 2596.3822
  }
 }

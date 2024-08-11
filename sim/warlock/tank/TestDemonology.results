@@ -102,18 +102,18 @@ stat_weights_results: {
   weights: 0
   weights: 0
   weights: 0
-  weights: -0.37191
+  weights: -0.37835
   weights: 0
-  weights: 0.4698
-  weights: 0
-  weights: 0
+  weights: 0.47275
   weights: 0
   weights: 0
   weights: 0
   weights: 0
   weights: 0
-  weights: 4.12216
-  weights: 1.19061
+  weights: 0
+  weights: 0
+  weights: 4.12197
+  weights: 1.19089
   weights: 0
   weights: 0
   weights: 0
@@ -151,18 +151,18 @@ stat_weights_results: {
   weights: 0
   weights: 0
   weights: 0
-  weights: -1.86071
+  weights: -3.77718
   weights: 0
-  weights: 0.4817
-  weights: 0
-  weights: 0
+  weights: 0.25095
   weights: 0
   weights: 0
   weights: 0
   weights: 0
   weights: 0
-  weights: 19.55643
-  weights: 16.84492
+  weights: 0
+  weights: 0
+  weights: 13.8719
+  weights: 15.90219
   weights: 0
   weights: 0
   weights: 0
@@ -197,15 +197,15 @@ stat_weights_results: {
 dps_results: {
  key: "TestDemonology-Lvl40-AllItems-DeathmistRaiment"
  value: {
-  dps: 129.81835
-  tps: 144.88996
+  dps: 155.56194
+  tps: 170.76854
  }
 }
 dps_results: {
  key: "TestDemonology-Lvl40-Average-Default"
  value: {
-  dps: 398.38271
-  tps: 978.7566
+  dps: 416.22481
+  tps: 1005.51974
  }
 }
 dps_results: {
@@ -253,78 +253,78 @@ dps_results: {
 dps_results: {
  key: "TestDemonology-Lvl40-SwitchInFrontOfTarget-Default"
  value: {
-  dps: 393.37047
-  tps: 969.85321
+  dps: 413.79653
+  tps: 1000.49229
  }
 }
 dps_results: {
  key: "TestDemonology-Lvl60-AllItems-BloodGuard'sDreadweave"
  value: {
-  dps: 822.74617
-  tps: 418.20687
+  dps: 890.87448
+  tps: 472.70952
  }
 }
 dps_results: {
  key: "TestDemonology-Lvl60-AllItems-DeathmistRaiment"
  value: {
-  dps: 104.18416
-  tps: 115.36704
+  dps: 179.50734
+  tps: 190.65097
  }
 }
 dps_results: {
  key: "TestDemonology-Lvl60-AllItems-EmeraldEnchantedVestments"
  value: {
-  dps: 817.68771
-  tps: 412.3278
+  dps: 886.46907
+  tps: 467.35289
  }
 }
 dps_results: {
  key: "TestDemonology-Lvl60-AllItems-InfernalPactEssence-216509"
  value: {
-  dps: 2081.82262
-  tps: 4267.82034
+  dps: 2140.22499
+  tps: 4372.51082
  }
 }
 dps_results: {
  key: "TestDemonology-Lvl60-AllItems-IronweaveBattlesuit"
  value: {
-  dps: 100.94021
-  tps: 111.2931
+  dps: 176.41812
+  tps: 186.77101
  }
 }
 dps_results: {
  key: "TestDemonology-Lvl60-AllItems-Knight-Lieutenant'sDreadweave"
  value: {
-  dps: 822.74617
-  tps: 418.20687
+  dps: 890.87448
+  tps: 472.70952
  }
 }
 dps_results: {
  key: "TestDemonology-Lvl60-AllItems-MalevolentProphet'sVestments"
  value: {
-  dps: 992.71517
-  tps: 1263.84
+  dps: 1063.89856
+  tps: 1391.97011
  }
 }
 dps_results: {
  key: "TestDemonology-Lvl60-AllItems-NightmareProphet'sGarb"
  value: {
-  dps: 990.66875
-  tps: 1256.1584
+  dps: 1058.43051
+  tps: 1378.12957
  }
 }
 dps_results: {
  key: "TestDemonology-Lvl60-AllItems-ZilaGular-223214"
  value: {
-  dps: 2081.82262
-  tps: 4267.82034
+  dps: 2140.22499
+  tps: 4372.51082
  }
 }
 dps_results: {
  key: "TestDemonology-Lvl60-Average-Default"
  value: {
-  dps: 2094.82408
-  tps: 4290.96094
+  dps: 2160.09886
+  tps: 4409.36561
  }
 }
 dps_results: {
@@ -372,7 +372,7 @@ dps_results: {
 dps_results: {
  key: "TestDemonology-Lvl60-SwitchInFrontOfTarget-Default"
  value: {
-  dps: 2047.7284
-  tps: 4200.78625
+  dps: 2110.82598
+  tps: 4324.71492
  }
 }

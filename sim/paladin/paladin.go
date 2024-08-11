@@ -42,6 +42,8 @@ type Paladin struct {
 	exorcismCooldown  *core.Cooldown
 	holyShockCooldown *core.Cooldown
 	judgement         *core.Spell
+	divineStorm       *core.Spell
+	crusaderStrike    *core.Spell
 	rv                *core.Spell
 
 	// highest rank seal spell if available
@@ -94,9 +96,12 @@ func (paladin *Paladin) Initialize() {
 	paladin.registerAuraMastery()
 
 	paladin.lingerDuration = time.Millisecond * 400
+
+	paladin.registerStopAttackMacros()
 }
 
 func (paladin *Paladin) Reset(_ *core.Simulation) {
+	paladin.registerStopAttackMacros()
 }
 
 // maybe need to add stat dependencies
@@ -147,6 +152,37 @@ func (paladin *Paladin) has2hEquipped() bool {
 func (paladin *Paladin) ResetPrimarySeal(primarySeal proto.PaladinSeal) {
 	paladin.currentSeal = nil
 	paladin.primarySeal = paladin.getPrimarySealSpell(primarySeal)
+}
+
+func (paladin *Paladin) registerStopAttackMacros() {
+
+	//paladin.PseudoStats.IsUsingDivineStormStopAttack = true
+	//paladin.PseudoStats.IsUsingCrusaderStrikeStopAttack = true
+	//paladin.PseudoStats.IsUsingJudgementStopAttack = true
+	
+	if paladin.divineStorm != nil && paladin.PseudoStats.IsUsingDivineStormStopAttack != paladin.divineStorm.Flags.Matches(core.SpellFlagBatchStopAttackMacro) {
+		paladin.divineStorm.Flags = paladin.divineStorm.Flags ^ core.SpellFlagBatchStopAttackMacro
+	}
+	
+	if paladin.crusaderStrike != nil && paladin.PseudoStats.IsUsingCrusaderStrikeStopAttack != paladin.crusaderStrike.Flags.Matches(core.SpellFlagBatchStopAttackMacro) {
+		paladin.crusaderStrike.Flags = paladin.crusaderStrike.Flags ^ core.SpellFlagBatchStopAttackMacro
+	}
+
+	if paladin.spellJoM != nil && paladin.PseudoStats.IsUsingJudgementStopAttack != paladin.spellJoM.Flags.Matches(core.SpellFlagBatchStopAttackMacro) {
+		paladin.spellJoM.Flags = paladin.spellJoM.Flags ^ core.SpellFlagBatchStopAttackMacro
+	}
+
+	for i, v := range paladin.spellsJoR {
+		if v != nil && paladin.PseudoStats.IsUsingJudgementStopAttack != v.Flags.Matches(core.SpellFlagBatchStopAttackMacro) {
+			paladin.spellsJoR[i].Flags = v.Flags ^ core.SpellFlagBatchStopAttackMacro
+		}
+	}
+	
+	for i, v := range paladin.spellsJoC {
+		if v != nil && paladin.PseudoStats.IsUsingJudgementStopAttack != v.Flags.Matches(core.SpellFlagBatchStopAttackMacro) {
+			paladin.spellsJoC[i].Flags = v.Flags ^ core.SpellFlagBatchStopAttackMacro
+		}
+	}
 }
 
 func (paladin *Paladin) ResetCurrentPaladinAura() {

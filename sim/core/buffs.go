@@ -2181,6 +2181,109 @@ func ApplyWildStrikes(character *Character) *Aura {
 
 	var bonusAP float64
 
+	extraAttacksAura := character.GetOrRegisterAura(Aura{
+		Label:     "Extra Attacks",
+		ActionID:   ActionID{SpellID: 23060}, // Thrash ID
+		Duration:  NeverExpires,
+		MaxStacks: 4,
+		OnGain: func(aura *Aura, sim *Simulation) {
+		},
+		OnExpire: func(aura *Aura, sim *Simulation) {
+		},
+	})
+
+	wsBuffAura := character.GetOrRegisterAura(Aura{
+		Label:     "Wild Strikes Buff",
+		ActionID:  buffActionID,
+		Duration:  time.Millisecond * 1500,
+		MaxStacks: 2,
+		OnGain: func(aura *Aura, sim *Simulation) {
+			bonusAP = 0.2 * aura.Unit.GetStat(stats.AttackPower)
+			aura.Unit.AddStatsDynamic(sim, stats.Stats{stats.AttackPower: bonusAP})
+		},
+		OnExpire: func(aura *Aura, sim *Simulation) {
+			aura.Unit.AddStatsDynamic(sim, stats.Stats{stats.AttackPower: -bonusAP})
+		},
+	})
+
+	icd := Cooldown{
+		Timer:    character.NewTimer(),
+		Duration: time.Millisecond * 1500,
+	}
+	
+	storeLeeway := Cooldown{
+		Timer:    character.NewTimer(),
+		Duration: time.Millisecond * 5,
+	}
+
+	wsBuffAura.Icd = &icd
+
+	MakePermanent(character.GetOrRegisterAura(Aura{
+		Label: "Wild Strikes",
+		OnSpellHitDealt: func(aura *Aura, sim *Simulation, spell *Spell, result *SpellResult) {
+			if extraAttacksAura.IsActive() {
+				extraAttacksAura.SetStacks(sim, aura.Unit.AutoAttacks.GetExtraMHAttacks())
+			}
+		
+			if !result.Landed() || !spell.ProcMask.Matches(ProcMaskMeleeMH) || spell.Flags.Matches(SpellFlagSupressExtraAttack) {
+				return
+			}
+
+			// charges are removed by every auto or next melee, whether it lands or not
+			if wsBuffAura.IsActive() && spell.ProcMask.Matches(ProcMaskMeleeWhiteHit) {
+				if wsBuffAura.GetStacks() == 2 {
+					wsBuffAura.SetStacks(sim, 1)
+					wsBuffAura.Duration = time.Millisecond * 100 // 100 ms might be generous - could anywhere from 50-150 ms potentially
+					wsBuffAura.Refresh(sim)
+				}
+			}
+
+			if icd.IsReady(sim) && sim.RandomFloat("Wild Strikes") < 0.2 {
+				icd.Use(sim)
+				wsBuffAura.Activate(sim)
+				// aura is up _after_ the triggering swing lands, the extra attack only has 1500ms for the AP bonus but the extra attack does not expire
+				wsBuffAura.SetStacks(sim, 2)
+				wsBuffAura.Duration = time.Millisecond * 1500
+				
+				
+				if spell.Flags.Matches(SpellFlagBatchStopAttackMacro) {
+					storeLeeway.Use(sim)
+					aura.Unit.AutoAttacks.StoreExtraMHAttack(sim, 1, buffActionID, spell.ActionID)
+					
+					if !extraAttacksAura.IsActive() {
+						extraAttacksAura.Activate(sim)
+					}
+					
+					extraAttacksAura.SetStacks(sim, aura.Unit.AutoAttacks.GetExtraMHAttacks())
+				} else {
+					aura.Unit.AutoAttacks.ExtraMHAttack(sim, 1, buffActionID, spell.ActionID)
+				}
+
+
+				//if spell.SpellID == 20966 || spell.SpellID == 407778 || spell.SpellID == 407676 || spell.SpellID == 407803 {
+					//storeLeeway.Use(sim)
+				//	aura.Unit.AutoAttacks.StoreExtraMHAttack(sim, 1, buffActionID, spell.ActionID)
+				//} else {
+					//aura.Unit.AutoAttacks.ExtraMHAttack(sim, 1, buffActionID, spell.ActionID)
+					//extraAttacksSaved = 0		
+				//}
+			} //else {
+			//	aura.Unit.AutoAttacks.ExtraMHAttack(sim, 0, buffActionID, spell.ActionID);
+			//}
+			
+			
+		},
+	}))
+
+	return wsBuffAura
+}
+
+/*
+func ApplyWildStrikes(character *Character) *Aura {
+	buffActionID := ActionID{SpellID: 407975}
+
+	var bonusAP float64
+
 	wsBuffAura := character.GetOrRegisterAura(Aura{
 		Label:     "Wild Strikes Buff",
 		ActionID:  buffActionID,
@@ -2226,6 +2329,7 @@ func ApplyWildStrikes(character *Character) *Aura {
 
 	return wsBuffAura
 }
+*/
 
 const WindfuryRanks = 3
 
@@ -2287,7 +2391,7 @@ func ApplyWindfury(character *Character) *Aura {
 				} else {
 					windfuryBuffAura.SetStacks(sim, 2)
 				}
-				aura.Unit.AutoAttacks.ExtraMHAttack(sim, 1, ActionID{SpellID: 10610})
+				aura.Unit.AutoAttacks.ExtraMHAttack(sim, 1, ActionID{SpellID: 10610}, spell.ActionID)
 			}
 		},
 	}))
