@@ -2171,15 +2171,9 @@ func init() {
 				if spell.Flags.Matches(core.SpellFlagSuppressEquipProcs) {
 					return
 				}
-				if result.Landed() && spell.ProcMask.Matches(core.ProcMaskMelee) && icd.IsReady(sim) && sim.Proc(0.02, "HandOfJustice") {
+				if result.Landed() && spell.ProcMask.Matches(core.ProcMaskMelee) && icd.IsReady(sim) && sim.Proc(0.20, "HandOfJustice") {
 					icd.Use(sim)
 
-					//if spell.SpellID == 20966 || spell.SpellID == 407778 || spell.SpellID == 407676 || spell.SpellID == 407803 {
-					//	aura.Unit.AutoAttacks.StoreExtraMHAttack(sim, 1, core.ActionID{SpellID: 15600}, spell.ActionID)
-					//} else {
-					//	aura.Unit.AutoAttacks.ExtraMHAttack(sim, 1, core.ActionID{SpellID: 15600}, spell.ActionID)		
-					//}
-					
 					if spell.Flags.Matches(core.SpellFlagBatchStopAttackMacro) {
 						aura.Unit.AutoAttacks.StoreExtraMHAttack(sim, 1, core.ActionID{SpellID: 15600}, spell.ActionID)
 					} else {

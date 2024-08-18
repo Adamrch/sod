@@ -148,12 +148,12 @@ character_stats_results: {
 stat_weights_results: {
  key: "TestRetribution-Lvl25-StatWeights-Default"
  value: {
-  weights: 0.5076
-  weights: 0.28352
+  weights: 0.45413
+  weights: 0.23897
   weights: 0
   weights: 0
   weights: 0
-  weights: 0.13869
+  weights: 0.13555
   weights: 0
   weights: 0
   weights: 0
@@ -161,13 +161,13 @@ stat_weights_results: {
   weights: 0
   weights: 0
   weights: 0
-  weights: 0.20239
+  weights: 0.44647
   weights: 0
   weights: 0
   weights: 0
-  weights: 0.23073
-  weights: 1.57523
-  weights: 2.34319
+  weights: 0.20642
+  weights: 1.26435
+  weights: 2.13674
   weights: 0
   weights: 0
   weights: 0
@@ -295,15 +295,15 @@ stat_weights_results: {
 dps_results: {
  key: "TestRetribution-Lvl25-AllItems-SoulforgeArmor"
  value: {
-  dps: 204.63281
-  tps: 206.37231
+  dps: 195.02756
+  tps: 196.76706
  }
 }
 dps_results: {
  key: "TestRetribution-Lvl25-Average-Default"
  value: {
-  dps: 269.74175
-  tps: 276.55529
+  dps: 244.90072
+  tps: 251.71426
  }
 }
 dps_results: {
@@ -393,8 +393,8 @@ dps_results: {
 dps_results: {
  key: "TestRetribution-Lvl25-SwitchInFrontOfTarget-Default"
  value: {
-  dps: 251.8433
-  tps: 258.85621
+  dps: 229.53175
+  tps: 236.54465
  }
 }
 dps_results: {

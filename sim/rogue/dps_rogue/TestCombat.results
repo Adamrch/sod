@@ -99,8 +99,8 @@ character_stats_results: {
 stat_weights_results: {
  key: "TestCombat-Lvl25-StatWeights-Default"
  value: {
-  weights: 0.29838
-  weights: 0.52905
+  weights: 0.28564
+  weights: 0.47706
   weights: 0
   weights: 0
   weights: 0
@@ -116,9 +116,9 @@ stat_weights_results: {
   weights: 0
   weights: 0
   weights: 0
-  weights: 0.27126
-  weights: 2.22744
-  weights: 1.93212
+  weights: 0.25967
+  weights: 1.92406
+  weights: 1.82724
   weights: 0
   weights: 0
   weights: 0
@@ -148,8 +148,8 @@ stat_weights_results: {
 stat_weights_results: {
  key: "TestCombat-Lvl40-StatWeights-Default"
  value: {
-  weights: 0.43407
-  weights: 0.69861
+  weights: 0.41843
+  weights: 0.66089
   weights: 0
   weights: 0
   weights: 0
@@ -165,9 +165,9 @@ stat_weights_results: {
   weights: 0
   weights: 0
   weights: 0
-  weights: 0.39461
+  weights: 0.38039
   weights: 0
-  weights: 3.83057
+  weights: 3.65403
   weights: 0
   weights: 0
   weights: 0
@@ -197,15 +197,15 @@ stat_weights_results: {
 dps_results: {
  key: "TestCombat-Lvl25-AllItems-DarkmantleArmor"
  value: {
-  dps: 316.2011
-  tps: 224.50278
+  dps: 298.74789
+  tps: 212.111
  }
 }
 dps_results: {
  key: "TestCombat-Lvl25-Average-Default"
  value: {
-  dps: 259.43882
-  tps: 184.20156
+  dps: 250.17212
+  tps: 177.62221
  }
 }
 dps_results: {
@@ -295,8 +295,8 @@ dps_results: {
 dps_results: {
  key: "TestCombat-Lvl25-SwitchInFrontOfTarget-Default"
  value: {
-  dps: 246.10185
-  tps: 174.73231
+  dps: 236.16134
+  tps: 167.67455
  }
 }
 dps_results: {
@@ -309,8 +309,8 @@ dps_results: {
 dps_results: {
  key: "TestCombat-Lvl40-Average-Default"
  value: {
-  dps: 620.76555
-  tps: 440.74354
+  dps: 601.83111
+  tps: 427.30009
  }
 }
 dps_results: {
@@ -400,7 +400,7 @@ dps_results: {
 dps_results: {
  key: "TestCombat-Lvl40-SwitchInFrontOfTarget-Default"
  value: {
-  dps: 597.0423
-  tps: 423.90003
+  dps: 577.69214
+  tps: 410.16142
  }
 }

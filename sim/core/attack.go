@@ -242,7 +242,9 @@ type WeaponAttack struct {
 
 	swingAt      time.Duration
 	lastSwingAt  time.Duration
-	extraAttacks int32
+	extraAttacks int32 // extra attacks that happen right away
+	extraAttacksStored int32 // extra attack that happen on next auto (e.g reckoning)
+	extraAttacksPending int32 // extraAttacks prior to previous ones resolving for spell metrics
 
 	curSwingSpeed    float64
 	curSwingDuration time.Duration
@@ -260,12 +262,79 @@ func (wa *WeaponAttack) setWeapon(weapon Weapon) {
 // inlineable stub for swing
 func (wa *WeaponAttack) trySwing(sim *Simulation) time.Duration {
 	if sim.CurrentTime < wa.swingAt {
+
+		if sim.Log != nil {
+			wa.unit.Log(sim, "trySwing failed - swing at %f and lastsing at %f", wa.swingAt, wa.lastSwingAt)
+		}
 		return wa.swingAt
 	}
 	return wa.swing(sim)
 }
 
+func (wa *WeaponAttack) castExtraAttacksStored(sim *Simulation) bool {
+	return wa.castExtraAttacks(sim, &wa.extraAttacksStored, 0)
+}
+
+func (wa *WeaponAttack) castExtraAttacksTriggered(sim *Simulation, moreAttacks bool) bool {
+	if moreAttacks {
+		return wa.castExtraAttacks(sim, &wa.extraAttacks, 0)
+	} else {
+		return wa.castExtraAttacks(sim, &wa.extraAttacks, 1)
+	}
+
+}
+
+func (wa *WeaponAttack) castExtraAttacks(sim *Simulation, numExtraAttacks *int32, startIndex int32) bool {
+	if *numExtraAttacks > 0 {
+		// Ignore the first extra attack, that was used to speed up next attack
+		//wa.swingAt = sim.CurrentTime + SpellBatchWindow
+		//sim.rescheduleWeaponAttack(wa.swingAt)
+		if sim.Log != nil {
+			wa.unit.Log(sim, "Setting MH spell metric to 1")
+		}
+
+		wa.spell.SetMetricsSplit(1)
+		
+		if sim.Log != nil {
+			wa.unit.Log(sim, "unleashes %d extra attacks with startIndex of %d", *numExtraAttacks, startIndex)
+			wa.unit.Log(sim, "swing at %f and lastsing at %f", wa.swingAt, wa.lastSwingAt)
+		}
+
+		extraAttacksTemp := *numExtraAttacks
+		*numExtraAttacks = 0 // Prevent Further Additional Attack procs from double casting current numExtraAttacks
+
+		for i := int32(startIndex); i < extraAttacksTemp; i++ {
+			// use original attacks for subsequent extra Attacks
+			wa.spell.Cast(sim, wa.unit.CurrentTarget)
+		}
+		
+		//wa.swingAt = sim.CurrentTime + wa.curSwingDuration
+		//wa.lastSwingAt = sim.CurrentTime
+		//*numExtraAttacks = 0
+
+		return true
+	}
+    return false
+
+}
+
+
 func (wa *WeaponAttack) swing(sim *Simulation) time.Duration {
+	isExtraAttack := wa.extraAttacksPending > 0
+
+	if isExtraAttack {
+		// Needs to happen before any attacks gets cast
+		wa.extraAttacks = wa.extraAttacksPending
+		wa.extraAttacksPending = 0
+		// Any further procs will be added to extraAttacksPending to be processed next batch
+	}
+
+	if sim.Log != nil {
+		wa.unit.Log(sim, "wa.swing Start - with %d stored extra attacks, is ExtraAttack: %t", wa.extraAttacksStored, isExtraAttack)
+	}
+
+	wa.castExtraAttacksStored(sim)
+
 	attackSpell := wa.spell
 
 	if wa.replaceSwing != nil {
@@ -279,40 +348,36 @@ func (wa *WeaponAttack) swing(sim *Simulation) time.Duration {
 	if attackSpell.CanCast(sim, wa.unit.CurrentTarget) {
 		// Update swing timer BEFORE the cast, so that APL checks for TimeToNextAuto behave correctly
 		// if the attack causes APL evaluations (e.g. from rage gain).
+		
 		wa.swingAt = sim.CurrentTime + wa.curSwingDuration
 		wa.lastSwingAt = sim.CurrentTime
 
-		isExtraAttack := wa.spell.Tag == tagExtraAttack
+		//isExtraAttack := wa.spell.Tag == tagExtraAttack
 
 		var originalCastTime time.Duration
 		if isExtraAttack {
 			originalCastTime = wa.spell.DefaultCast.CastTime
 			wa.spell.DefaultCast.CastTime = 0
+			wa.spell.SetMetricsSplit(1)
+			if sim.Log != nil {
+				wa.unit.Log(sim, "Setting MH spell metric to 1")
+			}
+		} else {
+			wa.spell.SetMetricsSplit(0)
+			if sim.Log != nil {
+				wa.unit.Log(sim, "Setting MH spell metric to 0")
+			}
 		}
 
+		//wa.extraAttacks = wa.extraAttacksPending
+		//wa.extraAttacksPending = 0
 		attackSpell.Cast(sim, wa.unit.CurrentTarget)
 
-		if wa.extraAttacks > 0 {
-			// Ignore the first extra attack, that was used to speed up next attack
-			wa.swingAt = sim.CurrentTime + SpellBatchWindow
-			sim.rescheduleWeaponAttack(wa.swingAt)
-			//wa.spell.SetMetricsSplit(1)
-			
-			if sim.Log != nil {
-				wa.unit.Log(sim, "unleashes %d extra attacks, it is and extra attack though? %t", wa.extraAttacks, isExtraAttack)
-				wa.unit.Log(sim, "swing at %f and lastsing at %f", wa.swingAt, wa.lastSwingAt)
-			}
-
-			for i := int32(1); i < wa.extraAttacks; i++ {
-				// use original attacks for subsequent extra Attacks
-				wa.spell.Cast(sim, wa.unit.CurrentTarget)
-			}
-			
-			//wa.swingAt = sim.CurrentTime + wa.curSwingDuration
-		        //wa.lastSwingAt = sim.CurrentTime
-			
-			wa.extraAttacks = 0
+		if sim.Log != nil {
+			wa.unit.Log(sim, "Extra attacks pending is %d", wa.extraAttacksPending)
 		}
+		moreAttacks := !isExtraAttack && wa.extraAttacksPending > 0 // True if above cast is a normal Auto attack that triggered an Extra Attack
+		wa.castExtraAttacksTriggered(sim, moreAttacks) // more attacks means we don't count the above cast
 
 		if isExtraAttack {
 			// For ranged extra attacks, we have to wait for the spell to hit before resettings the cast time and metrics split
@@ -320,10 +385,26 @@ func (wa *WeaponAttack) swing(sim *Simulation) time.Duration {
 				wa.spell.WaitTravelTime(sim, func(sim *Simulation) {
 					wa.spell.DefaultCast.CastTime = originalCastTime
 					wa.spell.SetMetricsSplit(0)
+					if sim.Log != nil {
+						wa.unit.Log(sim, "Setting MH spell metric to 0")
+					}
 				})
 			} else {
 				wa.spell.SetMetricsSplit(0)
+				if sim.Log != nil {
+					wa.unit.Log(sim, "Setting MH spell metric to 0")
+				}
 			}
+		}
+
+		if wa.extraAttacksPending > 0 {
+			if sim.Log != nil {
+				wa.unit.Log(sim, "More extra attacks pending")
+			}
+			wa.spell.SetMetricsSplit(1)
+			wa.swingAt = sim.CurrentTime + SpellBatchWindow
+			wa.lastSwingAt = sim.CurrentTime
+			sim.rescheduleWeaponAttack(wa.swingAt) // Required to fix extra attack procs triggered during swing
 		}
 
 		if !sim.Options.Interactive && wa.unit.Rotation != nil {
@@ -332,6 +413,10 @@ func (wa *WeaponAttack) swing(sim *Simulation) time.Duration {
 	} else {
 		// Delay till cast finishes if casting or 100 ms if not
 		wa.swingAt = max(wa.unit.Hardcast.Expires, sim.CurrentTime+time.Millisecond*100)
+	}
+
+	if sim.Log != nil {
+		wa.unit.Log(sim, "wa.swing End - with %d stored extra attacks and %d procced extra attacks", wa.extraAttacksStored, wa.extraAttacksPending)
 	}
 
 	return wa.swingAt
@@ -419,7 +504,10 @@ func (unit *Unit) EnableAutoAttacks(agent Agent, options AutoAttackOptions) {
 
 		ApplyEffects: func(sim *Simulation, target *Unit, spell *Spell) {
 			baseDamage := spell.Unit.MHWeaponDamage(sim, spell.MeleeAttackPower())
-			spell.CalcAndDealDamage(sim, target, baseDamage, spell.OutcomeMeleeWhite)
+			result := spell.CalcAndDealDamage(sim, target, baseDamage, spell.OutcomeMeleeWhite)
+			if sim.Log != nil {
+				sim.Log("MH Attack flag %d damage: %d", spell.Tag, result.Damage)			
+			}
 		},
 	}
 
@@ -661,32 +749,32 @@ func (aa *AutoAttacks) UpdateSwingTimers(sim *Simulation) {
 // ExtraMHAttack should be used for all "extra attack" procs in Classic Era versions, including Wild Strikes and Hand of Justice. In vanilla, these procs don't actually grant a full extra attack, but instead just advance the MH swing timer.
 
 func (aa *AutoAttacks) ExtraMHAttack(sim *Simulation, attacks int32, actionID ActionID, triggerAction ActionID) {
-        if attacks == 0 {
-        	return
-        }
+    if attacks == 0 {
+        return
+    }
 	if sim.Log != nil {
 		aa.mh.unit.Log(sim, "gains %d extra attacks from %s triggered by %s", attacks, actionID, triggerAction)
 	}
 	aa.mh.swingAt = sim.CurrentTime + SpellBatchWindow
 	aa.mh.spell.SetMetricsSplit(1)
 	sim.rescheduleWeaponAttack(aa.mh.swingAt)
-	aa.mh.extraAttacks += attacks
+	aa.mh.extraAttacksPending += attacks
 }
 
 func (aa *AutoAttacks) StoreExtraMHAttack(sim *Simulation, attacks int32, actionID ActionID, triggerAction ActionID) {
-        if attacks == 0 {
-        	return
-        }
+    if attacks == 0 {
+        return
+    }
 
-	aa.mh.extraAttacks = min(aa.mh.extraAttacks + attacks, 4) // Max is 4 stored extra attacks
+	aa.mh.extraAttacksStored = min(aa.mh.extraAttacksStored + attacks, 4) // Max is 4 stored extra attacks
 	
 	if sim.Log != nil {
-		aa.mh.unit.Log(sim, "stores %d extra attacks from %s triggered by %s, total is %d", attacks, actionID, triggerAction, aa.mh.extraAttacks)
+		aa.mh.unit.Log(sim, "stores %d extra attacks from %s triggered by %s, total is %d", attacks, actionID, triggerAction, aa.mh.extraAttacksStored)
 	}
 }
 
 func (aa *AutoAttacks) GetExtraMHAttacks() int32 {
-	return aa.mh.extraAttacks
+	return aa.mh.extraAttacksStored
 }
 
 // ExtraRangedAttack should be used for all "extra ranged attack" procs in Classic Era versions, including Hand of Injustice. In vanilla, these procs don't actually grant a full extra attack, but instead just advance the Ranged swing timer.
