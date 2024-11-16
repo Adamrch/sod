@@ -117,6 +117,7 @@ const (
 	TheUntamedBladeShadowflame      = 232566
 	ScarabBrooch                    = 233601 // 21625
 	KalimdorsRevenge                = 233621
+	JomGabbar                       = 233627
 	NeretzekBloodDrinker            = 233647
 	Speedstone                      = 233990
 	ManslayerOfTheQiraji            = 234067
@@ -2454,6 +2455,56 @@ func init() {
 			Handler: func(sim *core.Simulation, _ *core.Spell, result *core.SpellResult) {
 				spell.Cast(sim, result.Target)
 			},
+		})
+	})
+
+	core.NewItemEffect(JomGabbar, func(agent core.Agent) {
+		character := agent.GetCharacter()
+		//actionID := core.ActionID{ItemID: JomGabbar}
+
+		buffAura := character.GetOrRegisterAura(core.Aura{
+			ActionID:  core.ActionID{SpellID: 1213367},
+			Label:     "Jom Gabbar",
+			Duration:  time.Second * 20,
+			MaxStacks: 20,
+			OnGain: func(aura *core.Aura, sim *core.Simulation) {
+				aura.SetStacks(sim, 1)
+			},
+			OnStacksChange: func(aura *core.Aura, sim *core.Simulation, oldStacks int32, newStacks int32) {
+				aura.Unit.AddStatDynamic(sim, stats.AttackPower, float64(-70*oldStacks))
+				aura.Unit.AddStatDynamic(sim, stats.AttackPower, float64(70*newStacks))
+
+				if newStacks < aura.MaxStacks && newStacks != 0 {
+					core.StartDelayedAction(sim, core.DelayedActionOptions{
+						DoAt: sim.CurrentTime + 2*time.Second,
+						OnAction: func(s *core.Simulation) {
+							if aura.IsActive() {
+								aura.AddStack(sim)
+							}
+						},
+					})
+				}
+			},
+		})
+
+		spell := character.GetOrRegisterSpell(core.SpellConfig{
+			ActionID:    core.ActionID{SpellID: 1213366},
+			SpellSchool: core.SpellSchoolPhysical,
+			Flags:       core.SpellFlagNoOnCastComplete | core.SpellFlagOffensiveEquipment,
+			Cast: core.CastConfig{
+				CD: core.Cooldown{
+					Timer:    character.NewTimer(),
+					Duration: time.Minute * 2,
+				},
+			},
+			ApplyEffects: func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
+				buffAura.Activate(sim)
+			},
+		})
+
+		character.AddMajorCooldown(core.MajorCooldown{
+			Spell: spell,
+			Type:  core.CooldownTypeDPS,
 		})
 	})
 
