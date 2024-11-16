@@ -406,8 +406,8 @@ stat_weights_results: {
   weights: 1.18603
   weights: 0
   weights: 0
-  weights: 34.60587
-  weights: 16.65128
+  weights: 34.58361
+  weights: 16.67269
   weights: 0
   weights: 0
   weights: 0
@@ -688,7 +688,7 @@ dps_results: {
  key: "TestElemental-Phase3-Lvl50-Average-Default"
  value: {
   dps: 1692.65317
-  tps: 1457.05209
+  tps: 1457.05212
  }
 }
 dps_results: {
@@ -848,8 +848,8 @@ dps_results: {
 dps_results: {
  key: "TestElemental-Phase4-Lvl60-Average-Default"
  value: {
-  dps: 3544.26585
-  tps: 2156.38664
+  dps: 3544.29779
+  tps: 2156.40794
  }
 }
 dps_results: {
