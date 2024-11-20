@@ -77,10 +77,10 @@ func init() {
 				character.MultiplyCastSpeed(1.33)
 
 				// Crusader's zeal proc overwrites scrolls regardless of time left
-				truthbearerAura := character.GetAuraByID(core.ActionID{SpellID: 465414})
+				/*truthbearerAura := character.GetAuraByID(core.ActionID{SpellID: 465414})
 				if truthbearerAura != nil {
 					truthbearerAura.Deactivate(sim)
-				}
+				}*/
 			},
 			OnExpire: func(aura *core.Aura, sim *core.Simulation) {
 				character.MultiplyAttackSpeed(sim, 1.0/1.25)
@@ -321,10 +321,10 @@ func crusadersZealAura465414(character *core.Character) *core.Aura {
 			character.MultiplyAttackSpeed(sim, 1.30)
 
 			// Crusader's zeal proc overwrites scrolls regardless of time left
-			scrollsAura := character.GetAuraByID(core.ActionID{SpellID: 467522})
+			/*scrollsAura := character.GetAuraByID(core.ActionID{SpellID: 467522})
 			if scrollsAura != nil {
 				scrollsAura.Deactivate(sim)
-			}
+			}*/
 		},
 		OnExpire: func(aura *core.Aura, sim *core.Simulation) {
 			character.PseudoStats.BonusPhysicalDamage -= 15
