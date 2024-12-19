@@ -191,6 +191,8 @@ func NewPaladin(character *core.Character, options *proto.Player, paladinOptions
 
 	guardians.ConstructGuardians(&paladin.Character)
 
+	paladin.registerSoul()
+
 	return paladin
 }
 
@@ -223,6 +225,14 @@ func (paladin *Paladin) registerStopAttackMacros() {
 				v.Flags |= core.SpellFlagBatchStopAttackMacro
 			}
 		}
+	}
+}
+
+func (paladin *Paladin) registerSoul() {
+
+	if paladin.Options.PaladinSoul != proto.PaladinSoul_NoSoul {
+		soulBonusFunc := getBonusFuncFromSoul(paladin.Options.PaladinSoul) // Get Soul Bonus Func
+		soulBonusFunc(paladin)                                             // Apply it to agent
 	}
 }
 

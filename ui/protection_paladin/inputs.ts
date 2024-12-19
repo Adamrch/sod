@@ -1,7 +1,7 @@
 import * as InputHelpers from '../core/components/input_helpers.js';
 import { Player } from '../core/player.js';
 import { ItemSlot, Spec } from '../core/proto/common.js';
-import { PaladinRune, PaladinSeal, PaladinAura, Blessings } from '../core/proto/paladin.js';
+import { PaladinRune, PaladinSeal, PaladinAura, Blessings, PaladinSoul } from '../core/proto/paladin.js';
 import { ActionId } from '../core/proto_utils/action_id.js';
 import { TypedEvent } from '../core/typed_event.js';
 // Configuration for spec-specific UI elements on the settings tab.
@@ -82,6 +82,44 @@ export const PrimarySealSelection = InputHelpers.makeSpecOptionsEnumIconInput<Sp
 			value: PaladinSeal.Martyrdom,
 		},
 	],
+	changeEmitter: (player: Player<Spec.SpecProtectionPaladin>) =>
+		TypedEvent.onAny([player.gearChangeEmitter, player.talentsChangeEmitter, player.specOptionsChangeEmitter, player.levelChangeEmitter]),
+});
+
+
+export const SoulSelection = InputHelpers.makeSpecOptionsEnumIconInput<Spec.SpecProtectionPaladin, PaladinSoul>({
+	fieldName: 'paladinSoul',
+	numColumns: 4,
+	values: [
+		{ value: PaladinSoul.NoSoul, tooltip: 'No Soul' },
+		{ actionId: () => ActionId.fromSpellId(456536), value: PaladinSoul.PristineBlocker, tooltip: 'PristineBlocker' }, // 236530
+		{ actionId: () => ActionId.fromSpellId(456538), value: PaladinSoul.Lightwarden, tooltip: 'Lightwarden' }, // 236531
+		{ actionId: () => ActionId.fromSpellId(456541), value: PaladinSoul.RadiantDefender, tooltip: 'RadiantDefender' }, // 236532
+		{ actionId: () => ActionId.fromSpellId(467531), value: PaladinSoul.Shieldbearer, tooltip: 'Shieldbearer' }, // 236533
+		{ actionId: () => ActionId.fromSpellId(467532), value: PaladinSoul.Bastion, tooltip: 'Bastion' }, // 236534
+		{ actionId: () => ActionId.fromSpellId(467536), value: PaladinSoul.Reckoner, tooltip: 'Reckoner' }, // 236535
+		{ actionId: () => ActionId.fromSpellId(1213410), value: PaladinSoul.Ironclad, tooltip: 'Ironclad' }, // 236536
+		{ actionId: () => ActionId.fromSpellId(1213413), value: PaladinSoul.Guardian, tooltip: 'Guardian' }, // 236537
+		{ actionId: () => ActionId.fromSpellId(456488), value: PaladinSoul.Peacekeeper, tooltip: 'Peacekeeper' }, // 236538
+		{ actionId: () => ActionId.fromSpellId(457323), value: PaladinSoul.Refined, tooltip: 'Refined' }, // 236539
+		{ actionId: () => ActionId.fromSpellId(456492), value: PaladinSoul.Exemplar, tooltip: 'Exemplar' }, // 236540
+		{ actionId: () => ActionId.fromSpellId(467506), value: PaladinSoul.Inquisitor, tooltip: 'Inquisitor' }, // 236541
+		{ actionId: () => ActionId.fromSpellId(467507), value: PaladinSoul.Sovereign, tooltip: 'Sovereign' }, // 236542
+		{ actionId: () => ActionId.fromSpellId(467513), value: PaladinSoul.Dominus, tooltip: 'Dominus' }, // 236543
+		{ actionId: () => ActionId.fromSpellId(1213349), value: PaladinSoul.Vindicator, tooltip: 'Vindicator' }, // 236544
+		{ actionId: () => ActionId.fromSpellId(1213353), value: PaladinSoul.Altruist, tooltip: 'Altruist' }, // 236545
+		{ actionId: () => ActionId.fromSpellId(456494), value: PaladinSoul.Arbiter, tooltip: 'Arbiter' }, // 236546
+		{ actionId: () => ActionId.fromSpellId(456533), value: PaladinSoul.Sealbearer, tooltip: 'Sealbearer' }, // 236547
+		{ actionId: () => ActionId.fromSpellId(467518), value: PaladinSoul.Justicar, tooltip: 'Justicar' }, // 236548
+		{ actionId: () => ActionId.fromSpellId(467526), value: PaladinSoul.Judicator, tooltip: 'Judicator' }, // 236549
+		{ actionId: () => ActionId.fromSpellId(467529), value: PaladinSoul.Ascendant, tooltip: 'Ascendant' }, // 236550
+		{ actionId: () => ActionId.fromSpellId(1213397), value: PaladinSoul.Retributor, tooltip: 'Retributor' }, // 236551
+		{ actionId: () => ActionId.fromSpellId(1213406), value: PaladinSoul.Excommunicator, tooltip: 'Excommunicator' }, // 236552
+		{ actionId: () => ActionId.fromSpellId(468428), value: PaladinSoul.Lightbringer, tooltip: 'Lightbringer' }, // 236553
+		{ actionId: () => ActionId.fromSpellId(468431), value: PaladinSoul.Exile, tooltip: 'Exile' }, // 236554
+		{ actionId: () => ActionId.fromSpellId(123467), value: PaladinSoul.Templar, tooltip: 'Templar'}, // 236555
+	],
+	// changeEmitter: (player: Player<Spec.SpecRetributionPaladin>) => player.changeEmitter,
 	changeEmitter: (player: Player<Spec.SpecProtectionPaladin>) =>
 		TypedEvent.onAny([player.gearChangeEmitter, player.talentsChangeEmitter, player.specOptionsChangeEmitter, player.levelChangeEmitter]),
 });

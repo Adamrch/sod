@@ -31,6 +31,7 @@ func NewProtectionPaladin(character *core.Character, options *proto.Player) *Pro
 	prot := &ProtectionPaladin{
 		Paladin:                         pal,
 		primarySeal:                     protOptions.PrimarySeal,
+		paladinSoul:                     protOptions.PaladinSoul,
 		righteousFury:                   protOptions.RighteousFury,
 		IsUsingDivineStormStopAttack:    protOptions.IsUsingDivineStormStopAttack,
 		IsUsingJudgementStopAttack:      protOptions.IsUsingJudgementStopAttack,
@@ -55,6 +56,7 @@ type ProtectionPaladin struct {
 	IsUsingJudgementStopAttack      bool
 	IsUsingCrusaderStrikeStopAttack bool
 	personalBlessing                proto.Blessings
+	paladinSoul                     proto.PaladinSoul
 }
 
 func (prot *ProtectionPaladin) GetPaladin() *paladin.Paladin {
