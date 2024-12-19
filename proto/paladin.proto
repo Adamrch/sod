@@ -128,6 +128,36 @@ enum PaladinSeal {
 	Martyrdom = 3;
 }
 
+enum PaladinSoul {
+	NoSoul = 0;
+	PristineBlocker = 1;
+	Lightwarden = 2;
+	RadiantDefender = 3;
+	Shieldbearer = 4;
+	Bastion = 5;
+	Reckoner = 6;
+	Ironclad = 7;
+	Guardian = 8;
+	Peacekeeper = 9;
+	Refined = 10;
+	Exemplar = 11;
+	Inquisitor = 12;
+	Sovereign = 13;
+	Dominus = 14;
+	Vindicator = 15;
+	Altruist = 16;
+	Arbiter = 17;
+	Sealbearer = 18;
+	Justicar = 19;
+	Judicator = 20;
+	Ascendant = 21;
+	Retributor = 22;
+	Excommunicator = 23;
+	Lightbringer = 24;
+	Exile = 25;
+	Templar = 26;
+}
+
 message PaladinOptions {
 	PaladinSeal primarySeal = 1;
 	PaladinAura aura = 2;
@@ -137,6 +167,7 @@ message PaladinOptions {
 
     bool righteousFury = 8;
     Blessings personalBlessing = 9;
+	PaladinSoul paladinSoul = 10;
 }
 
 message RetributionPaladin {

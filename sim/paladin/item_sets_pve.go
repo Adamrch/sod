@@ -488,30 +488,45 @@ var ItemSetBattlegearOfEternalJustice = core.NewItemSet(core.ItemSet{
 	Name: "Battlegear of Eternal Justice",
 	Bonuses: map[int32]core.ApplyEffect{
 		// Crusader Strike now unleashes the judgement effect of your seals, but does not consume the seal
-		3: func(agent core.Agent) {
-			paladin := agent.(PaladinAgent).GetPaladin()
-			if !paladin.hasRune(proto.PaladinRune_RuneHandsCrusaderStrike) {
-				return
-			}
-
-			paladin.RegisterAura(core.Aura{
-				Label: "S03 - Item - RAQ - Paladin - Retribution 3P Bonus",
-				OnInit: func(aura *core.Aura, sim *core.Simulation) {
-					originalApplyEffects := paladin.crusaderStrike.ApplyEffects
-					extraApplyEffects := paladin.judgement.ApplyEffects
-
-					// Wrap the apply Crusader Strike ApplyEffects with more Effects
-					paladin.crusaderStrike.ApplyEffects = func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
-						originalApplyEffects(sim, target, spell)
-						consumeSealsOnJudgeSaved := paladin.consumeSealsOnJudge // Save current value
-						paladin.consumeSealsOnJudge = false                     // Set to not consume seals
-						if paladin.currentSeal.IsActive() {
-							extraApplyEffects(sim, target, paladin.judgement)
-						}
-						paladin.consumeSealsOnJudge = consumeSealsOnJudgeSaved // Restore saved value
-					}
-				},
-			})
-		},
+		3: templarBonus,
 	},
 })
+
+func createTemplarAura(paladin *Paladin) core.Aura {
+	return core.Aura{
+		Label: "S03 - Item - RAQ - Paladin - Retribution 3P Bonus",
+		OnInit: func(aura *core.Aura, sim *core.Simulation) {
+			originalApplyEffects := paladin.crusaderStrike.ApplyEffects
+			extraApplyEffects := paladin.judgement.ApplyEffects
+
+			// Wrap the apply Crusader Strike ApplyEffects with more Effects
+			paladin.crusaderStrike.ApplyEffects = func(sim *core.Simulation, target *core.Unit, spell *core.Spell) {
+				originalApplyEffects(sim, target, spell)
+				consumeSealsOnJudgeSaved := paladin.consumeSealsOnJudge // Save current value
+				paladin.consumeSealsOnJudge = false                     // Set to not consume seals
+				if paladin.currentSeal.IsActive() {
+					extraApplyEffects(sim, target, paladin.judgement)
+				}
+				paladin.consumeSealsOnJudge = consumeSealsOnJudgeSaved // Restore saved value
+			}
+		},
+	}
+}
+
+func templarSoul(agent core.Agent) {
+	paladin := agent.(PaladinAgent).GetPaladin()
+
+	if !paladin.hasRune(proto.PaladinRune_RuneHandsCrusaderStrike) {
+		return
+	}
+
+	paladin.RegisterAura(createTemplarAura(paladin))
+}
+
+func templarBonus(agent core.Agent) {
+	paladin := agent.(PaladinAgent).GetPaladin()
+
+	if paladin.Options.PaladinSoul != proto.PaladinSoul_Templar {
+		templarSoul(agent)
+	}
+}

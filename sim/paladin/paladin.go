@@ -191,6 +191,8 @@ func NewPaladin(character *core.Character, options *proto.Player, paladinOptions
 
 	guardians.ConstructGuardians(&paladin.Character)
 
+	paladin.registerSoul()
+
 	return paladin
 }
 
@@ -224,6 +226,70 @@ func (paladin *Paladin) registerStopAttackMacros() {
 			}
 		}
 	}
+}
+
+func (paladin *Paladin) registerSoul() {
+
+	switch paladin.Options.PaladinSoul {
+	case proto.PaladinSoul_NoSoul:
+		return
+	case proto.PaladinSoul_PristineBlocker:
+		return
+	case proto.PaladinSoul_Lightwarden:
+		return
+	case proto.PaladinSoul_RadiantDefender:
+		return
+	case proto.PaladinSoul_Shieldbearer:
+		return
+	case proto.PaladinSoul_Bastion:
+		return
+	case proto.PaladinSoul_Reckoner:
+		return
+	case proto.PaladinSoul_Ironclad:
+		return
+	case proto.PaladinSoul_Guardian:
+		return
+	case proto.PaladinSoul_Peacekeeper:
+		return
+	case proto.PaladinSoul_Refined:
+		return
+	case proto.PaladinSoul_Exemplar:
+		return
+	case proto.PaladinSoul_Inquisitor:
+		return
+	case proto.PaladinSoul_Sovereign:
+		return
+	case proto.PaladinSoul_Dominus:
+		return
+	case proto.PaladinSoul_Vindicator:
+		return
+	case proto.PaladinSoul_Altruist:
+		return
+	case proto.PaladinSoul_Arbiter:
+		return
+	case proto.PaladinSoul_Sealbearer:
+		return
+	case proto.PaladinSoul_Justicar:
+		return
+	case proto.PaladinSoul_Judicator:
+		return
+	case proto.PaladinSoul_Ascendant:
+		return
+	case proto.PaladinSoul_Retributor:
+		return
+	case proto.PaladinSoul_Excommunicator:
+		return
+	case proto.PaladinSoul_Lightbringer:
+		return
+	case proto.PaladinSoul_Exile:
+		return
+	case proto.PaladinSoul_Templar:
+		templarSoul(paladin)
+		return
+	default:
+		return
+	}
+
 }
 
 func (paladin *Paladin) ResetCurrentPaladinAura() {

@@ -165,6 +165,7 @@ const SPEC_CONFIG = registerSpecConfig(Spec.SpecProtectionPaladin, {
 		ProtectionPaladinInputs.RighteousFuryToggle,
 		ProtectionPaladinInputs.BlessingSelection,
 		ProtectionPaladinInputs.AuraSelection,
+		ProtectionPaladinInputs.SoulSelection,
 	],
 	// Buff and Debuff inputs to include/exclude, overriding the EP-based defaults.
 

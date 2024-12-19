@@ -1,7 +1,7 @@
 import * as InputHelpers from '../core/components/input_helpers.js';
 import { Player } from '../core/player.js';
 import { Spec } from '../core/proto/common.js';
-import { PaladinSeal, PaladinAura } from '../core/proto/paladin.js';
+import { PaladinSeal, PaladinAura, PaladinSoul } from '../core/proto/paladin.js';
 import { ActionId } from '../core/proto_utils/action_id.js';
 import { TypedEvent } from '../core/typed_event.js';
 
@@ -58,6 +58,43 @@ export const PrimarySealSelection = InputHelpers.makeSpecOptionsEnumIconInput<Sp
 			value: PaladinSeal.Martyrdom,
 		},
 	],
+	// changeEmitter: (player: Player<Spec.SpecRetributionPaladin>) => player.changeEmitter,
+	changeEmitter: (player: Player<Spec.SpecRetributionPaladin>) =>
+		TypedEvent.onAny([player.gearChangeEmitter, player.talentsChangeEmitter, player.specOptionsChangeEmitter, player.levelChangeEmitter]),
+});
+
+export const SoulSelection = InputHelpers.makeSpecOptionsEnumIconInput<Spec.SpecRetributionPaladin, PaladinSoul>({
+	fieldName: 'paladinSoul',
+	values: [
+		{ value: PaladinSoul.NoSoul, tooltip: 'No Soul' },
+		//{ actionId: () => ActionId.fromSpellId(236530), value: PaladinSoul.PristineBlocker, tooltip: 'PristineBlocker' },
+		//{ actionId: () => ActionId.fromSpellId(236531), value: PaladinSoul.Lightwarden, tooltip: 'Lightwarden' },
+		//{ actionId: () => ActionId.fromSpellId(236532), value: PaladinSoul.RadiantDefender, tooltip: 'RadiantDefender' },
+		//{ actionId: () => ActionId.fromSpellId(236533), value: PaladinSoul.Shieldbearer, tooltip: 'Shieldbearer' },
+		//{ actionId: () => ActionId.fromSpellId(236534), value: PaladinSoul.Bastion, tooltip: 'Bastion' },
+		//{ actionId: () => ActionId.fromSpellId(236535), value: PaladinSoul.Reckoner, tooltip: 'Reckoner' },
+		{ actionId: () => ActionId.fromSpellId(236536), value: PaladinSoul.Ironclad, tooltip: 'Ironclad' },
+		//{ actionId: () => ActionId.fromSpellId(236537), value: PaladinSoul.Guardian, tooltip: 'Guardian' },
+		//{ actionId: () => ActionId.fromSpellId(236538), value: PaladinSoul.Peacekeeper, tooltip: 'Peacekeeper' },
+		{ actionId: () => ActionId.fromSpellId(236539), value: PaladinSoul.Refined, tooltip: 'Refined' },
+		//{ actionId: () => ActionId.fromSpellId(236540), value: PaladinSoul.Exemplar, tooltip: 'Exemplar' },
+		{ actionId: () => ActionId.fromSpellId(236541), value: PaladinSoul.Inquisitor, tooltip: 'Inquisitor' },
+		{ actionId: () => ActionId.fromSpellId(236542), value: PaladinSoul.Sovereign, tooltip: 'Sovereign' },
+		//{ actionId: () => ActionId.fromSpellId(236543), value: PaladinSoul.Dominus, tooltip: 'Dominus' },
+		//{ actionId: () => ActionId.fromSpellId(236544), value: PaladinSoul.Vindicator, tooltip: 'Vindicator' },
+		//{ actionId: () => ActionId.fromSpellId(236545), value: PaladinSoul.Altruist, tooltip: 'Altruist' },
+		//{ actionId: () => ActionId.fromSpellId(236546), value: PaladinSoul.Arbiter, tooltip: 'Arbiter' },
+		{ actionId: () => ActionId.fromSpellId(236547), value: PaladinSoul.Sealbearer, tooltip: 'Sealbearer' },
+		{ actionId: () => ActionId.fromSpellId(236548), value: PaladinSoul.Justicar, tooltip: 'Justicar' },
+		{ actionId: () => ActionId.fromSpellId(236549), value: PaladinSoul.Judicator, tooltip: 'Judicator' },
+		{ actionId: () => ActionId.fromSpellId(236550), value: PaladinSoul.Ascendant, tooltip: 'Ascendant' },
+		{ actionId: () => ActionId.fromSpellId(236551), value: PaladinSoul.Retributor, tooltip: 'Retributor' },
+		{ actionId: () => ActionId.fromSpellId(236552), value: PaladinSoul.Excommunicator, tooltip: 'Excommunicator' },
+		{ actionId: () => ActionId.fromSpellId(236553), value: PaladinSoul.Lightbringer, tooltip: 'Lightbringer' },
+		{ actionId: () => ActionId.fromSpellId(236554), value: PaladinSoul.Exile, tooltip: 'Exile' },
+		{ actionId: () => ActionId.fromSpellId(236555), value: PaladinSoul.Templar, tooltip: 'Templar' },
+	],
+
 	// changeEmitter: (player: Player<Spec.SpecRetributionPaladin>) => player.changeEmitter,
 	changeEmitter: (player: Player<Spec.SpecRetributionPaladin>) =>
 		TypedEvent.onAny([player.gearChangeEmitter, player.talentsChangeEmitter, player.specOptionsChangeEmitter, player.levelChangeEmitter]),
