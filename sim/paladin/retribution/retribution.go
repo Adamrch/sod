@@ -31,6 +31,7 @@ func NewRetributionPaladin(character *core.Character, options *proto.Player) *Re
 	ret := &RetributionPaladin{
 		Paladin:                         pal,
 		primarySeal:                     retOptions.PrimarySeal,
+		paladinSoul:                     retOptions.PaladinSoul,
 		IsUsingDivineStormStopAttack:    retOptions.IsUsingDivineStormStopAttack,
 		IsUsingJudgementStopAttack:      retOptions.IsUsingJudgementStopAttack,
 		IsUsingCrusaderStrikeStopAttack: retOptions.IsUsingCrusaderStrikeStopAttack,
@@ -48,6 +49,7 @@ type RetributionPaladin struct {
 	*paladin.Paladin
 
 	primarySeal                     proto.PaladinSeal
+	paladinSoul                     proto.PaladinSoul
 	IsUsingDivineStormStopAttack    bool
 	IsUsingJudgementStopAttack      bool
 	IsUsingCrusaderStrikeStopAttack bool
