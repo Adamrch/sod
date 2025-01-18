@@ -96,7 +96,7 @@ func (paladin *Paladin) applyNaxxramasRetribution6PBonus() {
 						}
 						*/
 					}
-					
+
 					critChanceBonus = min(critChanceBonus, 1.0)
 
 					spell.DamageMultiplierAdditive += critChanceBonus
