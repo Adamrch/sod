@@ -85,7 +85,7 @@ func (paladin *Paladin) applyNaxxramasRetribution6PBonus() {
 						if spell.SpellCode == SpellCode_PaladinExorcism {
 							critChanceBonus = 1.0
 						} else {
-							critChanceBonus = spell.SpellCritChance(target)
+							critChanceBonus = spell.SpellCritChance(target) / 100
 							if paladin.hasRune(proto.PaladinRune_RuneHeadWrath) {
 								critChanceBonus += paladin.GetStat(stats.MeleeCrit) / 100
 							}
