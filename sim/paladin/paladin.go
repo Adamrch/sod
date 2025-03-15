@@ -104,7 +104,7 @@ type Paladin struct {
 	lingerDuration      time.Duration
 	consumeSealsOnJudge bool
 	artOfWarDelayAura   *core.Aura
-	bypassMacroOptions   bool
+	bypassMacroOptions  bool
 }
 
 // Implemented by each Paladin spec.
@@ -227,6 +227,8 @@ func (paladin *Paladin) Initialize() {
 
 	paladin.ResetCurrentPaladinAura()
 	paladin.ResetPrimarySeal(paladin.Options.PrimarySeal)
+
+	paladin.applyPaladinSERet()
 }
 
 func (paladin *Paladin) Reset(_ *core.Simulation) {

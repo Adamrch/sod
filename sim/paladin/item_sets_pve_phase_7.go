@@ -45,6 +45,8 @@ func (paladin *Paladin) applyNaxxramasRetribution2PBonus() {
 		ClassMask: ClassSpellMask_PaladinDivineStorm,
 		IntValue:  100,
 	}))
+
+	paladin.applyPaladinSERet()
 }
 
 // Reduces the cast time of your Holy Wrath ability by 100%, reduces its cooldown by 25%, and reduces its mana cost by 75%.
@@ -224,5 +226,131 @@ func (paladin *Paladin) applyNaxxramasHoly2PBonus() {
 		Kind:      core.SpellMod_Cooldown_Flat,
 		ClassMask: ClassSpellMask_PaladinLayOnHands,
 		TimeValue: -time.Minute * 35,
+	}))
+}
+
+func (paladin *Paladin) applyPaladinSERet() {
+	paladin.applyPaladinSERet2P()
+	//paladin.applyPaladinSERet4P()
+	//paladin.applyPaladinSERet6P()
+}
+
+func (paladin *Paladin) applyPaladinSERet2P() {
+	bonusLabel := "S03 - Item - Scarlet Enclave - Paladin - Retribution 2P Bonus"
+
+	if paladin.HasAura(bonusLabel) {
+		return
+	}
+
+	// For 4pc Spenders
+	damageMod := paladin.AddDynamicMod(core.SpellModConfig{
+		Kind:      core.SpellMod_DamageDone_Flat,
+		ClassMask: ClassSpellMask_PaladinDivineStorm | ClassSpellMask_PaladinHolyShock,
+	})
+
+	buffAura := paladin.GetOrRegisterAura(core.Aura{
+		Label:     "Holy Power Spell Damage Mod",
+		ActionID:  core.ActionID{SpellID: 1217927},
+		MaxStacks: 3,
+		Duration:  core.NeverExpires,
+		OnStacksChange: func(aura *core.Aura, sim *core.Simulation, oldStacks int32, newStacks int32) {
+			damageMod.UpdateIntValue(100 * int64(newStacks))
+		},
+		OnGain: func(aura *core.Aura, sim *core.Simulation) {
+			damageMod.Activate()
+		},
+		OnExpire: func(aura *core.Aura, sim *core.Simulation) {
+			damageMod.Activate()
+		},
+	})
+
+	// 2 PC Holy Power Aura
+	holyPowerAura := paladin.GetOrRegisterAura(core.Aura{
+		Label:     "Holy Power",
+		ActionID:  core.ActionID{SpellID: 1226461},
+		MaxStacks: 3,
+		Duration:  core.NeverExpires,
+		OnStacksChange: func(aura *core.Aura, sim *core.Simulation, oldStacks int32, newStacks int32) {
+			aura.Unit.PseudoStats.SchoolDamageDealtMultiplier[stats.SchoolIndexHoly] *= ((1.0 + (0.2 * float64(newStacks))) / (1.0 + (0.2 * float64(oldStacks))))
+		},
+	})
+
+	apAuraMultiplier := []*stats.StatDependency{
+		paladin.NewDynamicMultiplyStat(stats.AttackPower, 1.0),
+		paladin.NewDynamicMultiplyStat(stats.AttackPower, 1.1),
+		paladin.NewDynamicMultiplyStat(stats.AttackPower, 1.2),
+		paladin.NewDynamicMultiplyStat(stats.AttackPower, 1.3),
+	}
+
+	apAura := paladin.RegisterAura(core.Aura{
+		Label:     "Holy Power AP",
+		ActionID:  core.ActionID{SpellID: 1220545},
+		Duration:  time.Second * 10,
+		MaxStacks: 3,
+		OnInit: func(aura *core.Aura, sim *core.Simulation) {
+			paladin.EnableDynamicStatDep(sim, apAuraMultiplier[0])
+		},
+		OnStacksChange: func(aura *core.Aura, sim *core.Simulation, oldStacks int32, newStacks int32) {
+			paladin.DisableDynamicStatDep(sim, apAuraMultiplier[oldStacks])
+			paladin.EnableDynamicStatDep(sim, apAuraMultiplier[newStacks])
+		},
+	})
+
+	core.MakePermanent(paladin.RegisterAura(core.Aura{
+		Label: bonusLabel,
+		//ActionID: core.ActionID{SpellID: PaladinTAQRet4P},
+		Duration: core.NeverExpires,
+		OnReset: func(aura *core.Aura, sim *core.Simulation) {
+			aura.Activate(sim)
+		},
+		OnSpellHitDealt: func(aura *core.Aura, sim *core.Simulation, spell *core.Spell, result *core.SpellResult) {
+			if spell.Matches(ClassSpellMask_PaladinExorcism | ClassSpellMask_PaladinCrusaderStrike) {
+				holyPowerAura.Activate(sim)
+				holyPowerAura.AddStack(sim)
+
+				if spell.Unit.HasAura("S03 - Item - Scarlet Enclave - Paladin - Retribution 4P Bonus") {
+					buffAura.Activate(sim)
+					buffAura.SetStacks(sim, holyPowerAura.GetStacks())
+				}
+
+			} else if spell.Matches(ClassSpellMask_PaladinDivineStorm | ClassSpellMask_PaladinHolyShock) {
+
+				if spell.Unit.HasAura("S03 - Item - Scarlet Enclave - Paladin - Retribution 4P Bonus") { // Need 4Pc to Spend Holy Power
+					buffAura.Deactivate(sim)
+
+					if spell.Unit.HasAura("S03 - Item - Scarlet Enclave - Paladin - Retribution 6P Bonus") { // Need 6Pc
+						apAura.Activate(sim)
+						apAura.SetStacks(sim, holyPowerAura.GetStacks())
+					}
+
+					holyPowerAura.SetStacks(sim, 0)
+				}
+
+			}
+		},
+	}))
+}
+
+func (paladin *Paladin) applyPaladinSERet4P() {
+	bonusLabel := "S03 - Item - Scarlet Enclave - Paladin - Retribution 4P Bonus"
+
+	if paladin.HasAura(bonusLabel) {
+		return
+	}
+
+	core.MakePermanent(paladin.RegisterAura(core.Aura{
+		Label: bonusLabel,
+	}))
+}
+
+func (paladin *Paladin) applyPaladinSERet6P() {
+	bonusLabel := "S03 - Item - Scarlet Enclave - Paladin - Retribution 6P Bonus"
+
+	if paladin.HasAura(bonusLabel) {
+		return
+	}
+
+	core.MakePermanent(paladin.RegisterAura(core.Aura{
+		Label: bonusLabel,
 	}))
 }
