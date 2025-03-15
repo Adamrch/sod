@@ -231,8 +231,8 @@ func (paladin *Paladin) applyNaxxramasHoly2PBonus() {
 
 func (paladin *Paladin) applyPaladinSERet() {
 	paladin.applyPaladinSERet2P()
-	//paladin.applyPaladinSERet4P()
-	//paladin.applyPaladinSERet6P()
+	paladin.applyPaladinSERet4P()
+	paladin.applyPaladinSERet6P()
 }
 
 func (paladin *Paladin) applyPaladinSERet2P() {
