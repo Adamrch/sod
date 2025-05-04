@@ -748,13 +748,16 @@ func init() {
 	// https://www.wowhead.com/classic/item=240919/ravagane
 	// Chance on hit: You attack all nearby enemies for 9 sec causing weapon damage plus an additional 200 every 1.5 sec.
 	// Confirmed PPM 0.8
-	itemhelpers.CreateWeaponProcAura(Ravagane, "Ravagane", 0.8, func(character *core.Character) *core.Aura {
+
+	core.NewItemEffect(Ravagane, func(agent core.Agent) {
+		character := agent.GetCharacter()
+
 		tickSpell := character.RegisterSpell(core.SpellConfig{
 			ActionID:    core.ActionID{SpellID: 1231546},
 			SpellSchool: core.SpellSchoolPhysical,
 			DefenseType: core.DefenseTypeMelee,
 			ProcMask:    core.ProcMaskMeleeMHSpecial,
-			Flags:       core.SpellFlagNoOnCastComplete | core.SpellFlagPassiveSpell,
+			Flags:       core.SpellFlagNoOnCastComplete | core.SpellFlagPassiveSpell | core.SpellFlagSuppressEquipProcs,
 
 			DamageMultiplier: 1,
 			ThreatMultiplier: 1,
@@ -769,16 +772,14 @@ func init() {
 		})
 
 		channelSpell := character.RegisterSpell(core.SpellConfig{
-			ActionID:    core.ActionID{SpellID: 1231547},
 			SpellSchool: core.SpellSchoolPhysical,
 			ProcMask:    core.ProcMaskMeleeMHSpecial,
-			Flags:       core.SpellFlagChanneled,
 			Dot: core.DotConfig{
 				Aura: core.Aura{
 					Label: "Ravagane Whirlwind",
 				},
-				NumberOfTicks: 3,
-				TickLength:    time.Second * 3,
+				NumberOfTicks: 6,
+				TickLength:    time.Millisecond * 1500,
 				IsAOE:         true,
 				OnTick: func(sim *core.Simulation, target *core.Unit, dot *core.Dot) {
 					tickSpell.Cast(sim, target)
@@ -786,18 +787,52 @@ func init() {
 			},
 		})
 
-		return character.RegisterAura(core.Aura{
-			Label:    "Ravagane Bladestorm",
-			Duration: time.Second * 9,
+		disableAutosAura := character.RegisterAura(core.Aura{
+			Label:    "Ravagane Bladestorm Disable Autos",
+			ActionID:    core.ActionID{SpellID: 1231547},
+			Duration: time.Second * 9 + core.SpellBatchWindow, // Allows 6th and final tick
+			MaxStacks: 6,
 			OnGain: func(aura *core.Aura, sim *core.Simulation) {
-				character.AutoAttacks.CancelAutoSwing(sim)
-				channelSpell.AOEDot().Apply(sim)
+				character.AutoAttacks.AllowAutoSwing(sim, false)
+			},
+			OnRefresh: func(aura *core.Aura, sim *core.Simulation) {
+				character.AutoAttacks.AllowAutoSwing(sim, false)
+				core.StartPeriodicAction(sim, core.PeriodicActionOptions{
+					Period:          time.Millisecond * 1500,
+					NumTicks:        6,
+					//Priority:        core.ActionPriorityAuto,
+					Priority:        core.ActionPriorityDOT,
+					TickImmediately: false,
+					OnAction: func(sim *core.Simulation) {
+						if aura.IsActive() && aura.TimeActive(sim) >= time.Millisecond * 1500 {
+							aura.RemoveStack(sim)
+							channelSpell.AOEDot().TickOnce(sim)
+						}
+					},
+				})
 			},
 			OnExpire: func(aura *core.Aura, sim *core.Simulation) {
-				character.AutoAttacks.EnableAutoSwing(sim)
-				channelSpell.AOEDot().Cancel(sim)
+				//if aura.GetStacks() == 0 { // This Check is needed for some reason
+					character.AutoAttacks.AllowAutoSwing(sim, true)
+				//}
 			},
 		})
+
+		triggerAura := core.MakeProcTriggerAura(&character.Unit, core.ProcTrigger{
+			Name:              "Ravagane Bladestorm Trigger",
+			Callback:          core.CallbackOnSpellHitDealt,
+			Outcome:           core.OutcomeLanded,
+			ProcMask:          core.ProcMaskMelee,
+			SpellFlagsExclude: core.SpellFlagSuppressWeaponProcs, // Trigger is Chance on Hit so suppress if triggering spell does not proc Chance on Hit
+			PPM:               0.8,
+			ICD:               8 * time.Second,
+			Handler: func(sim *core.Simulation, _ *core.Spell, result *core.SpellResult) {
+				disableAutosAura.Activate(sim)
+				disableAutosAura.SetStacks(sim, 6)
+			},
+		})
+
+		character.ItemSwap.RegisterProc(Ravagane, triggerAura)
 	})
 
 	// https://www.wowhead.com/classic/item=241002/remnants-of-the-red
